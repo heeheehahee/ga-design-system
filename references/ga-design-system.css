@@ -1,0 +1,864 @@
+/* ============================================================
+   GA/GH Design System CSS
+   完整组件样式库，做页面时直接 <link> 引用。
+   源文件：preview.html | 变量名用下划线（--on_surface）
+   ============================================================ */
+
+/* === 主题变量 === */
+/* ============================
+   主题变量 — HyperOS3 Feature Token + Apple 风格外壳
+   ============================ */
+:root {
+  /* 页面背景 */
+  --page-bg: #1c1c1e;
+  --sidebar-bg: rgba(44,44,46,0.72);
+  --sidebar-border: rgba(255,255,255,0.08);
+  --card-bg: rgba(255,255,255,0.06);
+  --divider: rgba(255,255,255,0.1);
+  --surface_pop_window: #242424;
+  --surface: #000000;
+  --surface_high: #242424;
+  --on_surface: #fffffff2;
+  --on_surface_secondary: #ffffffcc;
+  --on_surface_tertiary: #ffffff80;
+  --on_surface_quaternary: #ffffff66;
+  --primary: #4788ff;
+
+  /* 文字 */
+  --text-strong: #fffffff2;
+  --text-primary: #ffffffcc;
+  --text-secondary: rgba(255,255,255,0.55);
+  --text-weak: rgba(255,255,255,0.35);
+  --text-disabled: rgba(255,255,255,0.25);
+
+  /* 按钮 — 映射 Feature Token */
+  --btn-on-primary: #ffffffe6;       /* on_primary dark */
+  --btn-secondary-bg: #ffffff24;     /* tertiary dark */
+  --btn-secondary-text: #ffffffcc;   /* on_surface_secondary dark */
+  --btn-secondary-pressed: #ffffff1f;/* container_list_touch dark */
+  --btn-disabled-bg: #ffffff14;      /* surface_container dark */
+  --btn-disabled-text: #ffffff4d;    /* on_surface_button_disable dark */
+  --btn-destructive: #fa4238;        /* error dark */
+  --btn-destructive-disabled: #fa42384c; /* error_disable dark */
+  --btn-surface-touch: #ffffff24;    /* surface_touch dark */
+
+  /* 遮罩 — mask */
+  --mask: #00000099;                 /* mask dark */
+}
+body.theme-light {
+  --page-bg: #f5f5f7;
+  --sidebar-bg: rgba(255,255,255,0.72);
+  --sidebar-border: rgba(0,0,0,0.06);
+  --card-bg: #ffffff;
+  --divider: rgba(0,0,0,0.06);
+  --surface_pop_window: #f3f3f3;
+  --surface: #ffffff;
+  --surface_high: #ffffff;
+  --on_surface: #000000;
+  --on_surface_secondary: #000000cc;
+  --on_surface_tertiary: #00000099;
+  --on_surface_quaternary: #00000066;
+  --primary: #3482ff;
+
+  --text-strong: #1d1d1f;
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --text-weak: #86868b;
+  --text-disabled: #aeaeb2;
+
+  /* 按钮 — 映射 Feature Token */
+  --btn-on-primary: #ffffff;         /* on_primary light */
+  --btn-secondary-bg: #0000000f;     /* tertiary light */
+  --btn-secondary-text: #000000cc;   /* on_surface_secondary light */
+  --btn-secondary-pressed: #0000001f;/* container_list_touch light */
+  --btn-disabled-bg: #0000000a;      /* surface_container light */
+  --btn-disabled-text: #00000066;    /* on_surface_quaternary light */
+  --btn-destructive: #fa382e;        /* error light */
+  --btn-destructive-disabled: #fa382e4c; /* error_disable light */
+  --btn-surface-touch: #0000001a;    /* surface_touch light */
+
+  /* 遮罩 — mask */
+  --mask: #00000033;                 /* mask light */
+}
+
+/* === BaseButton + InstallButton + CustomButton === */
+/* ============================
+   BaseButton 组件样式
+   ============================ */
+:root {
+  --bb-primary: #05C474;
+  --bb-primary-rgb: 5, 196, 116;
+  --bb-danger: #FA382E;
+  --bb-danger-rgb: 250, 56, 46;
+  --bb-white: #FFFFFF;
+  --bb-black-rgb: 0, 0, 0;
+  --ib-primary: #05C474;
+  --ib-primary-rgb: 5, 196, 116;
+  --ib-white: #FFFFFF;
+  --ib-black-rgb: 0, 0, 0;
+}
+
+.base-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  font-family: -apple-system, "MiSans", "Helvetica Neue", sans-serif;
+  flex-shrink: 0;
+  outline: none;
+  white-space: nowrap;
+}
+.base-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.1s;
+  border-radius: inherit;
+}
+.base-btn:active::after,
+.base-btn[data-state="pressed"]::after { opacity: 1; }
+.base-btn--primary::after { background: var(--btn-surface-touch); }
+.base-btn--secondary::after,
+.base-btn--destructive::after { background: var(--btn-secondary-pressed); }
+.base-btn[data-state="disabled"]::after { display: none; }
+.base-btn[data-state="disabled"] { cursor: not-allowed; }
+
+.base-btn--large { width: 100%; height: 50px; border-radius: 16px; padding: 8px 20px; font-size: 17px; font-weight: 380; }
+.base-btn--medium { height: 36px; border-radius: 999px; padding: 8px 20px; font-size: 14px; font-weight: 380; }
+.base-btn--small { height: 32px; border-radius: 999px; padding: 0 12px; font-size: 14px; font-weight: 500; }
+.base-btn--mini { height: 28px; border-radius: 999px; padding: 4px 12px; font-size: 13px; font-weight: 330; }
+
+.base-btn--primary { background: var(--bb-primary); color: var(--btn-on-primary); }
+.base-btn--secondary { background: var(--btn-secondary-bg); color: var(--btn-secondary-text); }
+.base-btn--secondary[data-state="disabled"] { background: var(--btn-disabled-bg); color: var(--btn-disabled-text); }
+.base-btn--small.base-btn--secondary { background: rgba(var(--bb-primary-rgb), 0.1); color: var(--bb-primary); }
+.base-btn--small.base-btn--secondary[data-state="pressed"] { background: rgba(var(--bb-primary-rgb), 0.16); }
+.base-btn--small.base-btn--secondary[data-state="disabled"] { background: var(--btn-disabled-bg); color: var(--btn-disabled-text); }
+.base-btn--destructive { background: var(--btn-secondary-bg); color: var(--btn-destructive); }
+.base-btn--destructive[data-state="disabled"] { background: var(--btn-disabled-bg); color: var(--btn-destructive-disabled); }
+.base-btn-group { display: flex; gap: 12px; }
+.base-btn-group--vertical { flex-direction: column; }
+.base-btn-group--horizontal { flex-direction: row; }
+.base-btn-group--horizontal .base-btn { flex: 1; }
+
+/* ============================
+   InstallButton 组件样式
+   ============================ */
+.install-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  font-family: -apple-system, "MiSans", "Helvetica Neue", sans-serif;
+  flex-shrink: 0;
+  outline: none;
+}
+.install-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--btn-surface-touch);
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.1s;
+  border-radius: inherit;
+}
+.install-btn:active::after,
+.install-btn[data-state="pressed"]::after { opacity: 1; }
+
+.install-btn--large { width: 100%; height: 50px; border-radius: 16px; padding: 8px 20px; gap: 4px; font-size: 17px; font-weight: 380; }
+.install-btn--medium { width: 100%; height: 44px; border-radius: 16px; padding: 8px 20px; gap: 4px; font-size: 16px; font-weight: 380; }
+.install-btn--small { width: 54px; height: 28px; border-radius: 999px; padding: 0 8px; font-size: 14px; font-weight: 500; }
+.install-btn--icon { height: 28px; width: 54px; border-radius: 999px; padding: 0 8px; font-size: 14px; font-weight: 500; }
+
+.install-btn__label { position: relative; z-index: 2; white-space: nowrap; line-height: 1; }
+.install-btn__icon { position: relative; z-index: 2; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; }
+.install-btn__icon svg { width: 20px; height: 20px; }
+.install-btn__progress-bar { position: absolute; left: 0; top: 0; height: 100%; width: 0%; z-index: 1; background: var(--ib-primary); transition: width 0.15s linear; }
+.install-btn__dl-clip { position: absolute; left: 0; top: 0; height: 100%; width: 0%; overflow: hidden; z-index: 3; transition: width 0.15s linear; }
+.install-btn__dl-top { position: absolute; top: 0; left: 0; height: 100%; display: flex; align-items: center; justify-content: center; white-space: nowrap; line-height: 1; color: var(--btn-on-primary); }
+.install-btn__stripes { position: absolute; inset: 0; display: flex; z-index: 1; overflow: hidden; border-radius: inherit; }
+.install-btn__stripe { flex: 1; height: 100%; transition: background-color 0.15s; }
+@keyframes ib-spin { to { transform: rotate(360deg); } }
+.install-btn__icon--spinning svg { animation: ib-spin 0.8s linear infinite; }
+
+/* InstallButton 实色主色底状态 → on_primary 文字 */
+.install-btn--large[data-state="enabled"],
+.install-btn--medium[data-state="enabled"],
+.install-btn--large[data-state="pressed"],
+.install-btn--medium[data-state="pressed"] { background: var(--ib-primary); color: var(--btn-on-primary); }
+.install-btn[data-state="installing"] { background: var(--ib-primary); color: var(--btn-on-primary); }
+.install-btn[data-state="open"] { background: var(--ib-primary); color: var(--btn-on-primary); }
+.install-btn--large[data-state="update"],
+.install-btn--medium[data-state="update"] { background: var(--ib-primary); color: var(--btn-on-primary); }
+
+/* InstallButton 浅主色底状态 → 主色文字 */
+.install-btn--small[data-state="enabled"] { background: rgba(var(--ib-primary-rgb), 0.1); color: var(--ib-primary); }
+.install-btn--small[data-state="pressed"] { background: rgba(var(--ib-primary-rgb), 0.16); color: var(--ib-primary); }
+.install-btn--icon[data-state="enabled"] { background: rgba(var(--ib-primary-rgb), 0.1); color: var(--ib-primary); }
+.install-btn--icon[data-state="pressed"] { background: rgba(var(--ib-primary-rgb), 0.16); color: var(--ib-primary); }
+.install-btn--small[data-state="connecting"],
+.install-btn--icon[data-state="connecting"] { background: rgba(var(--ib-primary-rgb), 0.1); color: var(--ib-primary); }
+.install-btn--small[data-state="downloading"],
+.install-btn--icon[data-state="downloading"] { background: rgba(var(--ib-primary-rgb), 0.1); color: var(--ib-primary); }
+.install-btn--small[data-state="resume"],
+.install-btn--icon[data-state="resume"] { background: rgba(var(--ib-primary-rgb), 0.1); color: var(--ib-primary); }
+.install-btn--small[data-state="update"],
+.install-btn--icon[data-state="update"] { background: rgba(var(--ib-primary-rgb), 0.1); color: var(--ib-primary); }
+
+/* InstallButton 灰底状态 → secondary bg + 主色文字 */
+.install-btn--large[data-state="connecting"],
+.install-btn--medium[data-state="connecting"] { background: var(--btn-secondary-bg); color: var(--ib-primary); }
+.install-btn--large[data-state="downloading"],
+.install-btn--medium[data-state="downloading"] { background: var(--btn-secondary-bg); color: var(--ib-primary); }
+.install-btn--large[data-state="resume"],
+.install-btn--medium[data-state="resume"] { background: var(--btn-secondary-bg); color: var(--ib-primary); }
+
+/* InstallButton Disabled → 用 Feature Token 禁用色 */
+.install-btn--large[data-state="disabled"],
+.install-btn--medium[data-state="disabled"] { background: var(--btn-secondary-bg); color: var(--btn-disabled-text); cursor: not-allowed; }
+.install-btn--small[data-state="disabled"] { background: var(--btn-disabled-bg); color: var(--btn-disabled-text); cursor: not-allowed; }
+.install-btn--icon[data-state="disabled"] { background: var(--btn-disabled-bg); color: var(--btn-disabled-text); cursor: not-allowed; }
+.install-btn[data-state="disabled"]::after { display: none; }
+
+/* ============================
+   CustomButton 组件样式
+   ============================ */
+
+/* PostButton */
+.post-btn-container {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.post-btn-container:active {
+  transform: scale(0.95);
+}
+.post-btn-container__avatar {
+  margin-bottom: -14px;
+  z-index: 1;
+  pointer-events: none;
+}
+.post-btn-container__btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 128px;
+  height: 46px;
+  border-radius: 23px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: linear-gradient(180deg, #FFDC21 0%, #FFEF98 100%);
+  gap: 4px;
+  cursor: pointer;
+  outline: none;
+  font-family: inherit;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.08), 0 0 40px rgba(0,0,0,0.06);
+}
+.post-btn-container__btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.1);
+  opacity: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  transition: opacity 0.1s;
+}
+.post-btn-container:active .post-btn-container__btn::after {
+  opacity: 1;
+}
+.post-btn-container__plus {
+  font-size: 15px;
+  font-weight: 500;
+  color: #000;
+}
+.post-btn-container__text {
+  font-size: 16px;
+  font-weight: 450;
+  color: #000;
+}
+
+/* SpeedUp */
+.speedup-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 36px;
+  border-radius: 999px;
+  padding: 9px 12px;
+  border: none;
+  cursor: pointer;
+  background: #FFE249;
+  color: #000;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 450;
+  overflow: hidden;
+  outline: none;
+}
+.speedup-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.1);
+  opacity: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  transition: opacity 0.1s;
+}
+.speedup-btn:active::after,
+.speedup-btn[data-state="pressed"]::after { opacity: 1; }
+.speedup-btn[data-state="disabled"] { opacity: 0.4; cursor: not-allowed; }
+.speedup-btn[data-state="disabled"]::after { display: none; }
+.speedup-btn svg { width: 12px; height: 18px; flex-shrink: 0; }
+
+/* VideoControls */
+.video-ctrl {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 28px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: rgba(0,0,0,0.8);
+  padding: 1px 6px;
+  outline: none;
+  overflow: hidden;
+}
+.video-ctrl::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.1);
+  opacity: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  transition: opacity 0.1s;
+}
+.video-ctrl:active::after { opacity: 1; }
+.video-ctrl svg { width: 26px; height: 26px; }
+
+/* PlayButton large */
+.play-btn-lg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  padding: 0;
+  outline: none;
+  filter: drop-shadow(0px 3px 12px rgba(0,0,0,0.1));
+}
+.play-btn-lg svg { width: 40px; height: 40px; }
+.play-btn-lg-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 16px;
+}
+
+/* ReservationButton */
+.reservation-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 28px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  padding: 0 8px;
+  overflow: hidden;
+  outline: none;
+}
+.reservation-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.1);
+  opacity: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  transition: opacity 0.1s;
+}
+.reservation-btn:active::after,
+.reservation-btn[data-state="pressed"]::after { opacity: 1; }
+.reservation-btn--not-reserved { background: rgba(var(--ib-primary-rgb), 0.1); color: var(--ib-primary); }
+.reservation-btn--not-reserved[data-state="pressed"] { background: rgba(var(--ib-primary-rgb), 0.16); }
+.reservation-btn--reserved { background: var(--ib-primary); color: #000; }
+.reservation-btn svg { width: 20px; height: 20px; }
+
+/* 状态标签 */
+.state-label {
+  font-size: 12px;
+  color: var(--text-weak);
+  text-align: center;
+  margin-top: 6px;
+}
+
+/* === 页面结构（状态栏/标题栏/玻璃材质/Tab栏/小白条）=== */
+/* 页面结构预览 */
+#sim-content::-webkit-scrollbar { display: none; }
+.phone-frame {
+  width: 392px;
+  max-width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid var(--divider);
+  margin-bottom: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+.statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 46px;
+  padding: 0 31px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.statusbar--light { background: #fff; color: #000; }
+.statusbar--dark { background: #000; color: #fff; }
+.statusbar__time { font-size: 15px; font-weight: 600; }
+.statusbar__icons { display: flex; gap: 6px; align-items: center; font-size: 12px; }
+.navbar-demo {
+  display: flex;
+  flex-direction: column;
+}
+.navbar-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 6px 12px;
+  gap: 48px;
+}
+.navbar-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--on_surface);
+  transition: background 0.2s, box-shadow 0.3s;
+}
+.navbar-icon:active:not(.glass-btn) { background: rgba(0,0,0,0.3); }
+.navbar-icon svg { width: 40px; height: 40px; }
+.glass-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1000px;
+  background: rgba(31,31,31,0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: none;
+  box-shadow:
+    inset 2px 2px 3px rgba(255,255,255,0.1),
+    inset -2px -2px 4px rgba(255,255,255,0.1);
+  color: var(--on_surface);
+  cursor: pointer;
+  transition: background 0.3s, box-shadow 0.3s, backdrop-filter 0.3s;
+}
+body.theme-light .glass-btn {
+  background: rgba(229,229,229,0.5);
+}
+.glass-btn--entering {
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(0) !important;
+  -webkit-backdrop-filter: blur(0) !important;
+}
+.glass-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 0.8px solid transparent;
+  background: linear-gradient(135deg,
+    rgba(255,255,255,0.5) 0%,
+    rgba(255,255,255,0.1) 40%,
+    rgba(255,255,255,0.1) 60%,
+    rgba(255,255,255,0.5) 100%) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0) border-box;
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0) border-box;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s;
+}
+.glass-btn--entering::before { opacity: 0 !important; }
+.glass-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: transparent;
+  pointer-events: none;
+  transition: background 0.15s;
+}
+.glass-btn:active::after { background: rgba(0,0,0,0.15); }
+.navbar-icons-right, .navbar-icons-left { display: flex; gap: 8px; }
+.navbar-title-area { padding: 8px 28px 10px; }
+.navbar-title-lg { font-size: 32px; font-weight: 330; }
+.navbar-title-sub { font-size: 14px; font-weight: 380; color: var(--on_surface_tertiary); margin-top: 2px; }
+/* 中标题Q18 */
+.navbar-md-q18 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 6px 12px 6px 28px;
+}
+.navbar-md-q18__title { font-size: 26px; font-weight: 380; }
+.navbar-md-q18__subtitle { font-size: 13px; font-weight: 380; color: var(--on_surface_tertiary); }
+/* 中标题二级页 */
+.navbar-md-sub {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  padding: 6px 12px;
+  gap: 12px;
+}
+.navbar-md-sub__title { font-size: 26px; font-weight: 380; flex: 1; }
+.navbar-md-sub__subtitle { font-size: 13px; font-weight: 380; color: var(--on_surface_tertiary); }
+/* 小标题 */
+.navbar-sm {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 6px 12px;
+}
+.navbar-sm__title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  font-weight: 380;
+  text-align: center;
+}
+.navbar-sm__title-group {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+.navbar-sm__left, .navbar-sm__right { display: flex; gap: 8px; }
+.navbar-sm__title-main { font-size: 18px; font-weight: 380; }
+.navbar-sm__title-sub { font-size: 13px; color: var(--on_surface_tertiary); }
+/* 小标题可点击 */
+.navbar-sm-click {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 6px 12px;
+  gap: 8px;
+}
+.navbar-sm-click__pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  height: 44px;
+  border-radius: 1000px;
+  background: rgba(116,116,116,0.12);
+  font-size: 14px;
+  font-weight: 380;
+  color: var(--on_surface_tertiary);
+  cursor: pointer;
+}
+.skeleton-content { padding: 20px; }
+.skeleton-block {
+  background: var(--btn-secondary-bg);
+  border-radius: 16px;
+  margin-bottom: 12px;
+}
+
+/* 底 Tab 栏组件 */
+.tab-bar {
+  display: flex;
+  align-items: center;
+  width: 392px;
+  height: 65px;
+  padding: 0 8px;
+  background: var(--card-bg);
+}
+.tab-bar__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  flex: 1;
+  height: 44px;
+  cursor: pointer;
+  color: var(--text-weak);
+  transition: color 0.2s;
+  border: none;
+  background: none;
+  font-family: inherit;
+  padding: 0;
+  outline: none;
+}
+.tab-bar__item--active { color: #FF6900; }
+.tab-bar__icon { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; position: relative; }
+.tab-bar__icon svg { width: 28px; height: 28px; }
+.tab-bar__label { font-size: 11px; font-weight: 380; }
+.tab-bar__badge {
+  position: absolute;
+  top: -4px;
+  right: -8px;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #FA382E;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+/* 系统小白条 */
+.homebar {
+  width: 392px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+.homebar__line {
+  width: 152px;
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.7);
+}
+body.theme-light .homebar__line {
+  background: rgba(0,0,0,0.8);
+}
+
+/* 状态栏 SVG 容器 */
+.statusbar-svg {
+  width: 392px;
+  height: 46px;
+}
+
+/* === 社区主色覆盖 === */
+/* ============================
+   社区主色覆盖（#FFE249 为浅色，所有文字/图标统一改黑色）
+   ============================
+   #FFE249 是浅色，文字色规则按「底色类型 × 明暗模式」决定：
+   - 实色主色底 → 始终黑字
+   - 浅色主色底 / 灰底 → 暗色用主题黄色，亮色用黑色
+   - 下载进度条重叠文字 → 始终黑字
+   - 亮色下浅色底透明度 10% → 30%（黄色太淡）
+*/
+
+/* ---- 1. 始终黑字（实色主色底） ---- */
+
+/* BaseButton Primary */
+body.theme-community .base-btn--primary { color: #000; }
+body.theme-community .base-btn--primary::after { background: rgba(0,0,0,0.1); }
+
+/* InstallButton Large/Medium 实色底 */
+body.theme-community .install-btn--large[data-state="enabled"],
+body.theme-community .install-btn--medium[data-state="enabled"],
+body.theme-community .install-btn--large[data-state="pressed"],
+body.theme-community .install-btn--medium[data-state="pressed"],
+body.theme-community .install-btn--large[data-state="installing"],
+body.theme-community .install-btn--medium[data-state="installing"],
+body.theme-community .install-btn--large[data-state="open"],
+body.theme-community .install-btn--medium[data-state="open"],
+body.theme-community .install-btn--large[data-state="update"],
+body.theme-community .install-btn--medium[data-state="update"] { color: #000; }
+
+/* InstallButton Small/Icon 实色底 */
+body.theme-community .install-btn--small[data-state="installing"],
+body.theme-community .install-btn--small[data-state="open"],
+body.theme-community .install-btn--icon[data-state="installing"],
+body.theme-community .install-btn--icon[data-state="open"] { color: #000; }
+
+/* ReservationButton 已预约（实色底） */
+body.theme-community .reservation-btn--reserved { color: #000; }
+
+/* 下载进度条：裁切层（与进度条重叠部分）始终黑字 */
+body.theme-community .install-btn__dl-clip .install-btn__dl-top { color: #000 !important; }
+
+/* ---- 2. 仅亮色黑字（浅色底 / 灰底，暗色下保持主题黄色） ---- */
+
+/* BaseButton Small Secondary */
+body.theme-community.theme-light .base-btn--small.base-btn--secondary { color: #000; }
+
+/* InstallButton Large/Medium 灰底状态 */
+body.theme-community.theme-light .install-btn--large[data-state="connecting"],
+body.theme-community.theme-light .install-btn--medium[data-state="connecting"],
+body.theme-community.theme-light .install-btn--large[data-state="downloading"],
+body.theme-community.theme-light .install-btn--medium[data-state="downloading"],
+body.theme-community.theme-light .install-btn--large[data-state="resume"],
+body.theme-community.theme-light .install-btn--medium[data-state="resume"] { color: #000; }
+
+/* InstallButton Small/Icon 浅色底状态 */
+body.theme-community.theme-light .install-btn--small[data-state="enabled"],
+body.theme-community.theme-light .install-btn--small[data-state="pressed"],
+body.theme-community.theme-light .install-btn--small[data-state="connecting"],
+body.theme-community.theme-light .install-btn--small[data-state="downloading"],
+body.theme-community.theme-light .install-btn--small[data-state="resume"],
+body.theme-community.theme-light .install-btn--small[data-state="update"],
+body.theme-community.theme-light .install-btn--icon[data-state="enabled"],
+body.theme-community.theme-light .install-btn--icon[data-state="pressed"],
+body.theme-community.theme-light .install-btn--icon[data-state="connecting"],
+body.theme-community.theme-light .install-btn--icon[data-state="downloading"],
+body.theme-community.theme-light .install-btn--icon[data-state="resume"],
+body.theme-community.theme-light .install-btn--icon[data-state="update"] { color: #000; }
+
+/* 下载进度条：亮色下底层文字也改黑色 */
+body.theme-community.theme-light .install-btn__dl-top { color: #000 !important; }
+
+/* ReservationButton 未预约 */
+body.theme-community.theme-light .reservation-btn--not-reserved { color: #000; }
+
+/* ---- 3. 亮色下浅色底透明度 10% → 30% ---- */
+
+body.theme-community.theme-light .base-btn--small.base-btn--secondary { background: rgba(var(--bb-primary-rgb), 0.3); }
+
+
+/* ============================================================
+   Chips 横滑标签栏
+   ============================================================ */
+.chips-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 20px 24px;
+  flex-shrink: 0;
+  overflow-x: auto;
+  overflow-y: visible;
+  scrollbar-width: none;
+  clip-path: inset(-40px 0);
+  z-index: 2;
+}
+.chips-bar::-webkit-scrollbar { display: none; }
+.chips-bar__chip {
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 330;
+  color: var(--on_surface_tertiary);
+  background: var(--surface_high);
+  box-shadow: 0px 12px 40px rgba(0,0,0,0.04), 0px 0px 20px rgba(0,0,0,0.02);
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.chips-bar__chip--active {
+  background: var(--bb-primary);
+  color: var(--btn-on-primary);
+  font-weight: 450;
+  box-shadow: none;
+}
+.chips-bar__chip:active { opacity: 0.7; }
+@keyframes chipsSlideLeft {
+  from { transform: translateX(30px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+@keyframes chipsSlideRight {
+  from { transform: translateX(-30px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+
+body.theme-community.theme-light .install-btn--small[data-state="enabled"],
+body.theme-community.theme-light .install-btn--icon[data-state="enabled"],
+body.theme-community.theme-light .install-btn--small[data-state="connecting"],
+
+
+/* ============================================================
+   SkeletonBone 骨架占位块
+   ============================================================ */
+.skeleton-bone {
+  background: var(--surface_container_medium);
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.skeleton-bone::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+  animation: shimmer 1.5s linear infinite;
+}
+body.theme-light .skeleton-bone::after {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.6) 50%, transparent 100%);
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.skeleton-bone--circle { border-radius: 999px; }
+.skeleton-bone--pill { border-radius: 999px; }
+.skeleton-bone--card { border-radius: 20px; }
+.skeleton-bone--bar { border-radius: 4px; }
+.skeleton-bone--line { border-radius: 4px; height: 14px; }
+
+/* ============================================================
+   StarRating 星级评分
+   ============================================================ */
+.star-full { color: var(--bb-primary); }
+.star-empty { color: var(--surface_container_high); }
+.star-half {
+  position: relative;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+.star-half > .star-empty,
+.star-half > .star-full {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.star-half__clip {
+  clip-path: inset(0 50% 0 0);
+}
