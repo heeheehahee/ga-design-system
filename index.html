@@ -4,15 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GA/GH设计 — 组件预览</title>
-<script>
-(function(){
-  var k = 'ga_design_auth';
-  if (sessionStorage.getItem(k) === '1') return;
-  var p = prompt('请输入访问密码：');
-  if (p === 'getapps2026') { sessionStorage.setItem(k, '1'); }
-  else { document.documentElement.innerHTML = '<h2 style="text-align:center;margin-top:40vh;color:#999">密码错误</h2>'; }
-})();
-</script>
+<script>if(sessionStorage.getItem("ga-auth")!=="ok"){var p=prompt("请输入访问密码：");if(p!=="getapps2026"){document.body.innerHTML="<h1>密码错误</h1>";throw new Error("auth")}sessionStorage.setItem("ga-auth","ok")}</script>
 <style>
 @font-face {
   font-family: 'MiSans Latin VF';
@@ -6032,7 +6024,7 @@ class DebugToolPreview {
   modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('code-modal--open'); });
   window.openCodeModal = function(file) {
     title.textContent = file;
-    iframe.src = window.location.protocol === 'file:' ? file : 'references/' + file;
+    iframe.src = file;
     currentPath = decodeURIComponent((baseDir + file).replace('file://', ''));
     const fullPath = decodeURIComponent((baseDir + file).replace('file://', ''));
     pathEl.textContent = fullPath;
