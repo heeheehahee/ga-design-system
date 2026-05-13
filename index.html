@@ -2372,18 +2372,63 @@ body.theme-light .homebar__line {
 
   <!-- ==================== Dialog ==================== -->
   <section id="dialog-preview" class="preview-panel">
+    <div style="display:flex;gap:24px;align-items:flex-start;padding:24px">
 
-    <div class="demo-section"><h3>ConfirmDialog — 单行正文</h3><div style="width:392px;box-sizing:border-box;background:var(--surface);border-radius:20px;padding:12px;overflow:auto;resize:horizontal;min-width:200px;max-width:600px"><div id="dlg-confirm-single"></div></div></div>
-    <div class="demo-section"><h3>ConfirmDialog — 多行正文</h3><div style="width:392px;box-sizing:border-box;background:var(--surface);border-radius:20px;padding:12px;overflow:auto;resize:horizontal;min-width:200px;max-width:600px"><div id="dlg-confirm-multi"></div></div></div>
-    <div class="demo-section"><h3>ConfirmDialog — 带勾选</h3><div style="width:392px;box-sizing:border-box;background:var(--surface);border-radius:20px;padding:12px;overflow:auto;resize:horizontal;min-width:200px;max-width:600px"><div id="dlg-confirm-checkbox"></div></div></div>
-    <div class="demo-section"><h3>ConfirmDialog — 2个以上按钮</h3><div style="width:392px;box-sizing:border-box;background:var(--surface);border-radius:20px;padding:12px;overflow:auto;resize:horizontal;min-width:200px;max-width:600px"><div id="dlg-confirm-multi-btn"></div></div></div>
-    <div class="demo-section"><h3>ConfirmDialog — 通知弹窗</h3><div style="width:392px;box-sizing:border-box;background:var(--surface);border-radius:20px;padding:12px;overflow:auto;resize:horizontal;min-width:200px;max-width:600px"><div id="dlg-confirm-notice"></div></div></div>
-    <div class="demo-section"><h3>WarningDialog — 警告弹窗</h3><div style="width:392px;box-sizing:border-box;background:var(--surface);border-radius:20px;padding:12px;overflow:auto;resize:horizontal;min-width:200px;max-width:600px"><div id="dlg-warning"></div></div></div>
-    <div class="demo-section"><h3>GuideDialog — 引导弹窗</h3><div style="width:392px;box-sizing:border-box;background:var(--surface);border-radius:20px;padding:12px;overflow:auto;resize:horizontal;min-width:200px;max-width:600px"><div id="dlg-guide"></div></div></div>
-    <div class="demo-section"><h3>InputDialog — 输入弹窗</h3><div style="width:392px;box-sizing:border-box;background:var(--surface);border-radius:20px;padding:12px;overflow:auto;resize:horizontal;min-width:200px;max-width:600px"><div id="dlg-input"></div></div></div>
-    <div class="demo-section"><h3>ProgressDialog — 进度弹窗</h3><div style="width:392px;box-sizing:border-box;background:var(--surface);border-radius:20px;padding:12px;overflow:auto;resize:horizontal;min-width:200px;max-width:600px"><div id="dlg-progress"></div></div></div>
-    <div class="demo-section"><h3>SelectionDialog — 选择弹窗</h3><div style="width:392px;box-sizing:border-box;background:var(--surface);border-radius:20px;padding:12px;overflow:auto;resize:horizontal;min-width:200px;max-width:600px"><div id="dlg-selection"></div></div></div>
-    <div class="demo-section"><h3>PermissionDialog — 权限弹窗</h3><div style="width:392px;box-sizing:border-box;background:var(--surface);border-radius:20px;padding:12px;overflow:auto;resize:horizontal;min-width:200px;max-width:600px"><div id="dlg-permission"></div></div></div>
+      <!-- 手机容器 -->
+      <div id="dlg-phone" style="width:392px;height:871px;border-radius:40px;overflow:hidden;border:1px solid var(--outline);box-shadow:0 4px 24px rgba(0,0,0,0.2);background:var(--surface);position:relative;flex-shrink:0">
+        <div id="dlg-statusbar" style="position:absolute;top:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:center;z-index:3"></div>
+        <div style="position:absolute;inset:0;padding:110px 20px 40px;overflow:hidden">
+          <div style="height:20px;width:60%;border-radius:6px;background:var(--surface_container);margin-bottom:12px"></div>
+          <div style="height:14px;width:100%;border-radius:4px;background:var(--surface_container);margin-bottom:8px"></div>
+          <div style="height:14px;width:90%;border-radius:4px;background:var(--surface_container);margin-bottom:8px"></div>
+          <div style="height:14px;width:75%;border-radius:4px;background:var(--surface_container);margin-bottom:24px"></div>
+          <div style="height:120px;width:100%;border-radius:12px;background:var(--surface_container);margin-bottom:24px"></div>
+          <div style="height:14px;width:100%;border-radius:4px;background:var(--surface_container);margin-bottom:8px"></div>
+          <div style="height:14px;width:85%;border-radius:4px;background:var(--surface_container);margin-bottom:8px"></div>
+          <div style="height:14px;width:60%;border-radius:4px;background:var(--surface_container);margin-bottom:24px"></div>
+          <div style="height:80px;width:100%;border-radius:12px;background:var(--surface_container)"></div>
+        </div>
+        <div id="dlg-mask" style="position:absolute;inset:0;background:var(--mask);display:flex;align-items:center;justify-content:center;padding:0 12px;z-index:10">
+          <div id="dlg-live" style="width:100%"></div>
+        </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;height:16px;display:flex;align-items:center;justify-content:center;z-index:3"><div style="width:138px;height:4px;border-radius:2px;background:var(--on_surface);opacity:0.3"></div></div>
+      </div>
+
+    </div>
+
+    <!-- 控制面板（隐藏，由右侧 controls-panel 自动读取） -->
+    <div style="display:none" id="dlg-controls">
+      <div><span>弹窗类型</span><div data-group="dlg-type" style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="tb-pill tb-pill--active" data-val="confirm">默认</button>
+        <button class="tb-pill" data-val="input">输入</button>
+        <button class="tb-pill" data-val="progress">进度</button>
+        <button class="tb-pill" data-val="selection">选择</button>
+        <button class="tb-pill" data-val="permission">权限</button>
+      </div></div>
+      <div><span>正文行数</span><div data-group="dlg-lines" style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="tb-pill tb-pill--active" data-val="single">单行</button>
+        <button class="tb-pill" data-val="multi">多行</button>
+      </div></div>
+      <div><span>引导图</span><div data-group="dlg-guide" style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="tb-pill tb-pill--active" data-val="hide">隐藏</button>
+        <button class="tb-pill" data-val="large">大尺寸</button>
+        <button class="tb-pill" data-val="icon">应用icon</button>
+      </div></div>
+      <div><span>勾选框</span><div data-group="dlg-checkbox" style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="tb-pill" data-val="show">显示</button>
+        <button class="tb-pill tb-pill--active" data-val="hide">隐藏</button>
+      </div></div>
+      <div><span>按钮数量</span><div data-group="dlg-btns" style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="tb-pill" data-val="1">1个</button>
+        <button class="tb-pill tb-pill--active" data-val="2">2个</button>
+        <button class="tb-pill" data-val="3">3个</button>
+        <button class="tb-pill" data-val="4">4个</button>
+      </div></div>
+      <div><span>备注文字</span><div data-group="dlg-note" style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="tb-pill tb-pill--active" data-val="show">显示</button>
+        <button class="tb-pill" data-val="hide">隐藏</button>
+      </div></div>
+    </div>
   </section>
 
   <!-- ==================== Toast 轻提示 ==================== -->
@@ -2968,6 +3013,7 @@ const controlsMap = {
   'buttons-preview': 'buttons-controls',
   'chips-preview': 'chips-controls',
   'input-preview': 'input-controls',
+  'dialog-preview': 'dlg-controls',
   'debug-tool-preview': null
 };
 
@@ -4170,13 +4216,22 @@ class Tooltip {
   });
 })();
 /* ============================================================
-   Dialog 弹窗预览 — 按 dialog.md 更新后的规格还原
+   Dialog 弹窗预览 — 手机容器 + 控制面板
    ============================================================ */
 (function(){
+  var dlgMask = document.getElementById('dlg-mask');
+  var dlgLive = document.getElementById('dlg-live');
+  var dlgControls = document.getElementById('dlg-controls');
+  if (!dlgMask || !dlgLive) return;
+
+  // 状态栏
+  var dlgSb = document.getElementById('dlg-statusbar');
+  if (dlgSb && typeof SB_TRANSPARENT !== 'undefined') dlgSb.innerHTML = SB_TRANSPARENT;
+
   // 通用弹窗容器
   function dlgContainer() {
     const d = document.createElement('div');
-    d.style.cssText = 'width:100%;max-width:368px;margin:0 auto;border-radius:36px;background:var(--surface_pop_window);padding:24px 0;display:flex;flex-direction:column;gap:16px;box-shadow:0 8px 40px rgba(0,0,0,0.15);box-sizing:border-box';
+    d.style.cssText = 'width:100%;max-width:368px;border-radius:36px;background:var(--surface_pop_window);padding:24px 0;display:flex;flex-direction:column;gap:16px;box-shadow:0 8px 40px rgba(0,0,0,0.15);box-sizing:border-box';
     return d;
   }
   // 标题
@@ -4197,6 +4252,7 @@ class Tooltip {
   // 备注
   function dlgNote(text, align) {
     const n = document.createElement('div');
+    n.dataset.role = 'note';
     n.style.cssText = `padding:0 28px;font-size:13px;font-weight:330;color:var(--on_surface_quaternary);text-align:${align||'center'}`;
     n.textContent = text;
     return n;
@@ -4229,180 +4285,276 @@ class Tooltip {
     return a;
   }
 
-  // 1. ConfirmDialog — 单行
-  (function(){
-    const d = dlgContainer();
+  function dlgBtnsAuto() {
+    var btnCount = parseInt(dlgGetVal('dlg-btns') || '2');
+    if (btnCount === 1) {
+      return dlgBtnsVertical([{text:'我知道了',type:'primary'}]);
+    } else if (btnCount === 2) {
+      return dlgBtnsHorizontal([{text:'取消',type:'secondary'},{text:'确定',type:'primary'}]);
+    } else {
+      var btns = [{text:'主操作',type:'primary'},{text:'辅助操作',type:'secondary'}];
+      if (btnCount >= 3) btns.push({text:'其他操作',type:'secondary'});
+      if (btnCount >= 4) btns.push({text:'取消',type:'secondary'});
+      if (btnCount >= 5) btns.push({text:'拒绝',type:'secondary'});
+      return dlgBtnsVertical(btns);
+    }
+  }
+
+  function buildDialog(type) {
+    var d;
+    switch(type) {
+      case 'confirm-single':
+        d = dlgContainer();
+        d.appendChild(dlgTitle('标题'));
+        d.appendChild(dlgBody('正文，单行时居中对齐'));
+        d.appendChild(dlgNote('*备注文字单行居中对齐'));
+        d.appendChild(dlgBtnsVertical([{text:'主操作',type:'primary'},{text:'辅助操作',type:'secondary'}]));
+        return d;
+      case 'confirm-multi':
+        d = dlgContainer();
+        d.appendChild(dlgTitle('标题'));
+        d.appendChild(dlgBody('正文，多行时居左对齐，多行时居左对齐，多行时居左对齐'));
+        d.appendChild(dlgNote('*正文折行时备注文字居左，可折行','left'));
+        d.appendChild(dlgBtnsVertical([{text:'主操作',type:'primary'},{text:'辅助操作',type:'secondary'}]));
+        return d;
+      case 'confirm-checkbox':
+        d = dlgContainer();
+        d.appendChild(dlgTitle('标题'));
+        d.appendChild(dlgBody('正文，单行有checkbox居左对齐'));
+        d.appendChild(dlgNote('*有checkbox时单行居左对齐','left'));
+        var ck = document.createElement('div');
+        ck.style.cssText = 'padding:0 28px;display:flex;align-items:center;gap:8px;height:22px';
+        ck.innerHTML = '<div class="checkbox"></div><span style="font-size:16px;font-weight:330;color:var(--on_surface_secondary)">不再提醒</span>';
+        ck.querySelector('.checkbox').addEventListener('click', function() { this.classList.toggle('checkbox--selected'); });
+        d.appendChild(ck);
+        d.appendChild(dlgBtnsVertical([{text:'主操作',type:'primary'},{text:'辅助操作',type:'secondary'}]));
+        return d;
+      case 'confirm-multi-btn':
+        d = dlgContainer();
+        d.appendChild(dlgTitle('标题'));
+        d.appendChild(dlgBody('正文，多行时居左对齐，多行时居左对齐，多行时居左对齐'));
+        d.appendChild(dlgNote('*正文折行时备注文字居左，可折行','left'));
+        d.appendChild(dlgBtnsVertical([{text:'主操作',type:'primary'},{text:'辅助操作',type:'secondary'},{text:'其他操作',type:'secondary'},{text:'取消',type:'secondary'}]));
+        return d;
+      case 'confirm-notice':
+        d = dlgContainer();
+        d.appendChild(dlgTitle('通知'));
+        d.appendChild(dlgBody('一般为说明通知型内容，用户无需更多操作，一般为说明通知型内容'));
+        d.appendChild(dlgNote('*备注文字','left'));
+        d.appendChild(dlgBtnsVertical([{text:'我知道了',type:'primary'}]));
+        return d;
+      case 'warning':
+        d = dlgContainer();
+        var icon = document.createElement('div');
+        icon.style.cssText = 'width:56px;height:56px;border-radius:12px;background:var(--surface_container);margin:0 auto;display:flex;align-items:center;justify-content:center;color:var(--on_surface_quaternary);font-size:24px';
+        icon.textContent = '📦';
+        d.appendChild(icon);
+        d.appendChild(dlgTitle('卸载"快手"'));
+        d.appendChild(dlgBody('卸载后其所有数据也将被删除'));
+        d.appendChild(dlgNote('*正文折行时备注文字居左，可折行','left'));
+        d.appendChild(dlgBtnsHorizontal([{text:'取消',type:'secondary'},{text:'卸载',type:'destructive'}]));
+        return d;
+      case 'guide':
+        d = dlgContainer();
+        var img = document.createElement('div');
+        img.style.cssText = 'width:calc(100% - 48px);aspect-ratio:320/88;margin:0 auto;background:var(--surface_container);border-radius:16px;display:flex;align-items:center;justify-content:center;color:var(--on_surface_quaternary);font-size:14px';
+        img.textContent = '插图区域 320×88';
+        d.appendChild(img);
+        d.appendChild(dlgTitle('电量已低于20%'));
+        d.appendChild(dlgBody('建议开启省电模式，开启后可继续使用0小时49分钟'));
+        d.appendChild(dlgNote('*正文折行时备注文字居左，可折行','left'));
+        d.appendChild(dlgBtnsHorizontal([{text:'基础按钮',type:'secondary'},{text:'强调按钮',type:'primary'}]));
+        return d;
+      case 'input':
+        d = dlgContainer();
+        d.appendChild(dlgTitle('单输入框', 36));
+        var inp = document.createElement('div');
+        inp.style.cssText = 'padding:0 24px';
+        inp.innerHTML = '<div class="input-wrap input-wrap--full"><div class="input-bg input-bg--standalone"><div class="input-text-area"><input class="input-field" type="text" placeholder="请输入内容"></div></div></div>';
+        var inpBg = inp.querySelector('.input-bg');
+        var inpField = inp.querySelector('.input-field');
+        inpField.addEventListener('focus', function() { inpBg.classList.add('input-bg--active'); });
+        inpField.addEventListener('blur', function() { inpBg.classList.remove('input-bg--active'); });
+        d.appendChild(inp);
+        d.appendChild(dlgBtnsAuto());
+        return d;
+      case 'progress':
+        d = document.createElement('div');
+        d.style.cssText = 'width:100%;max-width:368px;height:72px;border-radius:36px;background:var(--surface_pop_window);display:flex;align-items:center;padding:0 24px;gap:8px;box-shadow:0 8px 40px rgba(0,0,0,0.15);box-sizing:border-box';
+        d.innerHTML = '<div class="loading-icon" style="flex-direction:row;gap:8px;color:var(--on_surface)"><div class="loading-icon__spinner"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 0C18.6274 0 24 5.37258 24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0ZM12 2.30762C6.64709 2.30762 2.30762 6.64709 2.30762 12C2.30762 17.3529 6.64709 21.6924 12 21.6924C17.3529 21.6924 21.6924 17.3529 21.6924 12C21.6924 6.64709 17.3529 2.30762 12 2.30762ZM6.92285 9.69238C8.19736 9.69238 9.23047 10.7255 9.23047 12C9.23047 13.2745 8.19735 14.3076 6.92285 14.3076C5.64845 14.3075 4.61523 13.2744 4.61523 12C4.61523 10.7256 5.64845 9.6925 6.92285 9.69238Z" fill="currentColor"/></svg></div><span style="font-size:17px;font-weight:380">正在更新请稍候...</span></div>';
+        return d;
+      case 'selection':
+        d = dlgContainer();
+        d.appendChild(dlgTitle('单选弹窗-单行', 36));
+        var list = document.createElement('div');
+        var selected = 2;
+        var rows = [];
+        ['选项一','选项二','选项三'].forEach(function(item,i) {
+          var row = document.createElement('div');
+          row.style.cssText = 'height:56px;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;cursor:pointer';
+          var txt = document.createElement('span');
+          txt.style.cssText = 'font-size:17px;font-weight:380;color:var(--on_surface)';
+          txt.textContent = item;
+          row.appendChild(txt);
+          var check = document.createElement('span');
+          check.style.cssText = 'color:var(--bb-primary);font-size:18px;font-weight:600;display:' + (i === selected ? 'block' : 'none');
+          check.textContent = '✓';
+          row.appendChild(check);
+          row.addEventListener('click', function() {
+            selected = i;
+            rows.forEach(function(r,j) { r.querySelector('span:last-child').style.display = j === i ? 'block' : 'none'; });
+          });
+          rows.push(row);
+          list.appendChild(row);
+        });
+        d.appendChild(list);
+        d.appendChild(dlgBtnsAuto());
+        return d;
+      case 'permission':
+        var pGuide = dlgGetVal('dlg-guide') || 'hide';
+        var pLines = dlgGetVal('dlg-lines') || 'single';
+        var pIsMulti = pLines === 'multi';
+        var pShowCk = dlgGetVal('dlg-checkbox') === 'show';
+        d = dlgContainer();
+        if (pGuide === 'large') {
+          var pImg = document.createElement('div');
+          pImg.style.cssText = 'width:calc(100% - 48px);aspect-ratio:320/88;margin:0 auto;background:var(--surface_container);border-radius:16px;display:flex;align-items:center;justify-content:center;color:var(--on_surface_quaternary);font-size:14px';
+          pImg.textContent = '插图区域 320×88';
+          d.appendChild(pImg);
+        } else if (pGuide === 'icon') {
+          var pIco = document.createElement('div');
+          pIco.style.cssText = 'width:32px;height:32px;border-radius:8px;background:var(--bb-primary);opacity:0.3;margin:0 auto';
+          d.appendChild(pIco);
+        }
+        d.appendChild(dlgTitle('是否允许"百度地图"获取位置信息'));
+        d.appendChild(dlgBody(pIsMulti ? '允许后，百度地图可在您使用应用期间获取您的位置信息，用于导航和周边搜索等功能' : '允许后可获取您的位置信息'));
+        var opts = document.createElement('div');
+        opts.style.cssText = 'padding:0 20px;display:flex;gap:12px';
+        var permSelected = 1;
+        var optEls = [];
+        ['模糊定位','精准定位'].forEach(function(label,i) {
+          var opt = document.createElement('div');
+          opt.style.cssText = 'flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer';
+          var preview = document.createElement('div');
+          preview.style.cssText = 'width:100%;height:99px;border-radius:12px;background:var(--surface_container);border:2px solid ' + (i === permSelected ? 'var(--bb-primary)' : 'transparent');
+          opt.appendChild(preview);
+          var lbl = document.createElement('span');
+          lbl.style.cssText = 'font-size:14px;font-weight:380;color:var(--on_surface)';
+          lbl.textContent = label;
+          opt.appendChild(lbl);
+          opt.addEventListener('click', function() {
+            permSelected = i;
+            optEls.forEach(function(el,j) { el.querySelector('div').style.borderColor = j === i ? 'var(--bb-primary)' : 'transparent'; });
+          });
+          optEls.push(opt);
+          opts.appendChild(opt);
+        });
+        d.appendChild(opts);
+        d.appendChild(dlgNote('*正文折行时备注文字居左，可折行','left'));
+        if (pShowCk) {
+          var pCk = document.createElement('div');
+          pCk.style.cssText = 'padding:0 28px;display:flex;align-items:center;gap:8px;height:22px';
+          pCk.innerHTML = '<div class="checkbox"></div><span style="font-size:16px;font-weight:330;color:var(--on_surface_secondary)">不再提醒</span>';
+          pCk.querySelector('.checkbox').addEventListener('click', function() { this.classList.toggle('checkbox--selected'); });
+          d.appendChild(pCk);
+        }
+        d.appendChild(dlgBtnsAuto());
+        return d;
+    }
+  }
+
+  function dlgGetVal(group) {
+    var active = dlgControls.querySelector('[data-group="' + group + '"] .tb-pill--active');
+    return active ? active.dataset.val : '';
+  }
+
+  function buildConfirmCombo() {
+    var lines = dlgGetVal('dlg-lines') || 'single';
+    var showCheckbox = dlgGetVal('dlg-checkbox') === 'show';
+    var btnCount = parseInt(dlgGetVal('dlg-btns') || '2');
+    var isMulti = lines === 'multi';
+    var guideMode = dlgGetVal('dlg-guide') || 'hide';
+    var d = dlgContainer();
+    if (guideMode === 'large') {
+      var img = document.createElement('div');
+      img.style.cssText = 'width:calc(100% - 48px);aspect-ratio:320/88;margin:0 auto;background:var(--surface_container);border-radius:16px;display:flex;align-items:center;justify-content:center;color:var(--on_surface_quaternary);font-size:14px';
+      img.textContent = '插图区域 320×88';
+      d.appendChild(img);
+    } else if (guideMode === 'icon') {
+      var icon = document.createElement('div');
+      icon.style.cssText = 'width:56px;height:56px;border-radius:12px;background:var(--surface_container);margin:0 auto;display:flex;align-items:center;justify-content:center;color:var(--on_surface_quaternary);font-size:24px';
+      icon.textContent = '📦';
+      d.appendChild(icon);
+    }
     d.appendChild(dlgTitle('标题'));
-    d.appendChild(dlgBody('正文，单行时居中对齐'));
-    d.appendChild(dlgNote('*备注文字单行居中对齐'));
-    d.appendChild(dlgBtnsVertical([{text:'主操作',type:'primary'},{text:'辅助操作',type:'secondary'}]));
-    document.getElementById('dlg-confirm-single').appendChild(d);
-  })();
+    d.appendChild(dlgBody(isMulti ? '正文，多行时居左对齐，多行时居左对齐，多行时居左对齐' : '正文，单行时居中对齐'));
+    d.appendChild(dlgNote(isMulti ? '*正文折行时备注文字居左，可折行' : '*备注文字单行居中对齐', isMulti ? 'left' : 'center'));
+    if (showCheckbox) {
+      var ck = document.createElement('div');
+      ck.style.cssText = 'padding:0 28px;display:flex;align-items:center;gap:8px;height:22px';
+      ck.innerHTML = '<div class="checkbox"></div><span style="font-size:16px;font-weight:330;color:var(--on_surface_secondary)">不再提醒</span>';
+      ck.querySelector('.checkbox').addEventListener('click', function() { this.classList.toggle('checkbox--selected'); });
+      d.appendChild(ck);
+    }
+    d.appendChild(dlgBtnsAuto());
+    return d;
+  }
 
-  // 2. ConfirmDialog — 多行
-  (function(){
-    const d = dlgContainer();
-    d.appendChild(dlgTitle('标题'));
-    d.appendChild(dlgBody('正文，多行时居左对齐，多行时居左对齐，多行时居左对齐'));
-    d.appendChild(dlgNote('*正文折行时备注文字居左，可折行','left'));
-    d.appendChild(dlgBtnsVertical([{text:'主操作',type:'primary'},{text:'辅助操作',type:'secondary'}]));
-    document.getElementById('dlg-confirm-multi').appendChild(d);
-  })();
+  function renderDialogPreview() {
+    var type = dlgGetVal('dlg-type') || 'confirm';
+    var showNote = dlgGetVal('dlg-note') !== 'hide';
+    dlgLive.innerHTML = '';
+    var el;
+    if (type === 'confirm') {
+      el = buildConfirmCombo();
+    } else {
+      el = buildDialog(type);
+    }
+    if (el && !showNote) {
+      var notes = el.querySelectorAll('[data-role="note"]');
+      notes.forEach(function(n) { n.style.display = 'none'; });
+    }
+    if (el) dlgLive.appendChild(el);
+    dlgMask.style.alignItems = 'flex-end';
+    dlgMask.style.padding = '0 12px 16px';
+  }
 
-  // 3. ConfirmDialog — 带勾选
-  (function(){
-    const d = dlgContainer();
-    d.appendChild(dlgTitle('标题'));
-    d.appendChild(dlgBody('正文，单行有checkbox居左对齐'));
-    d.appendChild(dlgNote('*有checkbox时单行居左对齐','left'));
-    const ck = document.createElement('div');
-    ck.style.cssText = 'padding:0 28px;display:flex;align-items:center;gap:8px;height:22px';
-    ck.innerHTML = '<div class="checkbox"></div><span style="font-size:16px;font-weight:330;color:var(--on_surface_secondary)">不再提醒</span>';
-    ck.querySelector('.checkbox').addEventListener('click', function() { this.classList.toggle('checkbox--selected'); });
-    d.appendChild(ck);
-    d.appendChild(dlgBtnsVertical([{text:'主操作',type:'primary'},{text:'辅助操作',type:'secondary'}]));
-    document.getElementById('dlg-confirm-checkbox').appendChild(d);
-  })();
-
-  // 4. ConfirmDialog — 2个以上按钮
-  (function(){
-    const d = dlgContainer();
-    d.appendChild(dlgTitle('标题'));
-    d.appendChild(dlgBody('正文，多行时居左对齐，多行时居左对齐，多行时居左对齐'));
-    d.appendChild(dlgNote('*正文折行时备注文字居左，可折行','left'));
-    d.appendChild(dlgBtnsVertical([{text:'主操作',type:'primary'},{text:'辅助操作',type:'secondary'},{text:'其他操作',type:'secondary'},{text:'取消',type:'secondary'}]));
-    document.getElementById('dlg-confirm-multi-btn').appendChild(d);
-  })();
-
-  // 5. ConfirmDialog — 通知
-  (function(){
-    const d = dlgContainer();
-    d.appendChild(dlgTitle('通知'));
-    d.appendChild(dlgBody('一般为说明通知型内容，用户无需更多操作，一般为说明通知型内容'));
-    d.appendChild(dlgNote('*备注文字','left'));
-    d.appendChild(dlgBtnsVertical([{text:'我知道了',type:'primary'}]));
-    document.getElementById('dlg-confirm-notice').appendChild(d);
-  })();
-
-  // 6. WarningDialog — 图标56×56在标题上方，按钮左右并排
-  (function(){
-    const d = dlgContainer();
-    const icon = document.createElement('div');
-    icon.style.cssText = 'width:56px;height:56px;border-radius:12px;background:var(--surface_container);margin:0 auto;display:flex;align-items:center;justify-content:center;color:var(--on_surface_quaternary);font-size:24px';
-    icon.textContent = '📦';
-    d.appendChild(icon);
-    d.appendChild(dlgTitle('卸载"快手"'));
-    d.appendChild(dlgBody('卸载后其所有数据也将被删除'));
-    d.appendChild(dlgNote('*正文折行时备注文字居左，可折行','left'));
-    d.appendChild(dlgBtnsHorizontal([{text:'取消',type:'secondary'},{text:'卸载',type:'destructive'}]));
-    document.getElementById('dlg-warning').appendChild(d);
-  })();
-
-  // 7. GuideDialog — 插图在标题上方，按钮左右并排
-  (function(){
-    const d = dlgContainer();
-    const img = document.createElement('div');
-    img.style.cssText = 'width:calc(100% - 48px);aspect-ratio:320/88;margin:0 auto;background:var(--surface_container);border-radius:16px;display:flex;align-items:center;justify-content:center;color:var(--on_surface_quaternary);font-size:14px';
-    img.textContent = '插图区域 320×88';
-    d.appendChild(img);
-    d.appendChild(dlgTitle('电量已低于20%'));
-    d.appendChild(dlgBody('建议开启省电模式，开启后可继续使用0小时49分钟'));
-    d.appendChild(dlgNote('*正文折行时备注文字居左，可折行','left'));
-    d.appendChild(dlgBtnsHorizontal([{text:'基础按钮',type:'secondary'},{text:'强调按钮',type:'primary'}]));
-    document.getElementById('dlg-guide').appendChild(d);
-  })();
-
-  // 8. InputDialog — 标题pad 0/36，输入框，按钮左右并排
-  (function(){
-    const d = dlgContainer();
-    d.appendChild(dlgTitle('单输入框', 36));
-    const inp = document.createElement('div');
-    inp.style.cssText = 'padding:0 24px';
-    inp.innerHTML = '<div style="width:320px;height:56px;border-radius:12px;background:var(--surface_container);border:1px solid var(--outline);display:flex;align-items:center;padding:0 16px"><span style="font-size:16px;color:var(--on_surface_quaternary)">请输入内容</span></div>';
-    d.appendChild(inp);
-    d.appendChild(dlgBtnsHorizontal([{text:'取消',type:'secondary'},{text:'确定',type:'primary'}]));
-    document.getElementById('dlg-input').appendChild(d);
-  })();
-
-  // 9. ProgressDialog — 72h，水平排列 loading+文字，无标题无按钮
-  (function(){
-    const d = document.createElement('div');
-    d.style.cssText = 'width:100%;max-width:368px;margin:0 auto;height:72px;border-radius:36px;background:var(--surface_pop_window);display:flex;align-items:center;padding:0 24px;gap:8px;box-shadow:0 8px 40px rgba(0,0,0,0.15);box-sizing:border-box';
-    d.innerHTML = '<div class="loading-icon" style="flex-direction:row;gap:8px;color:var(--on_surface)"><div class="loading-icon__spinner"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 0C18.6274 0 24 5.37258 24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0ZM12 2.30762C6.64709 2.30762 2.30762 6.64709 2.30762 12C2.30762 17.3529 6.64709 21.6924 12 21.6924C17.3529 21.6924 21.6924 17.3529 21.6924 12C21.6924 6.64709 17.3529 2.30762 12 2.30762ZM6.92285 9.69238C8.19736 9.69238 9.23047 10.7255 9.23047 12C9.23047 13.2745 8.19735 14.3076 6.92285 14.3076C5.64845 14.3075 4.61523 13.2744 4.61523 12C4.61523 10.7256 5.64845 9.6925 6.92285 9.69238Z" fill="currentColor"/></svg></div><span style="font-size:17px;font-weight:380">正在更新请稍候...</span></div>';
-    document.getElementById('dlg-progress').appendChild(d);
-  })();
-
-  // 10. SelectionDialog — 标题pad 0/36，选项列表每行56h，按钮左右并排
-  (function(){
-    const d = dlgContainer();
-    d.appendChild(dlgTitle('单选弹窗-单行', 36));
-    const list = document.createElement('div');
-    let selected = 2;
-    const rows = [];
-    ['选项一','选项二','选项三'].forEach((item,i) => {
-      const row = document.createElement('div');
-      row.style.cssText = 'height:56px;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;cursor:pointer';
-      const txt = document.createElement('span');
-      txt.style.cssText = 'font-size:17px;font-weight:380;color:var(--on_surface)';
-      txt.textContent = item;
-      row.appendChild(txt);
-      const check = document.createElement('span');
-      check.style.cssText = 'color:var(--bb-primary);font-size:18px;font-weight:600;display:' + (i === selected ? 'block' : 'none');
-      check.textContent = '✓';
-      row.appendChild(check);
-      row.addEventListener('click', () => {
-        selected = i;
-        rows.forEach((r,j) => { r.querySelector('span:last-child').style.display = j === i ? 'block' : 'none'; });
-      });
-      rows.push(row);
-      list.appendChild(row);
+  function updateControlsVisibility() {
+    var type = dlgGetVal('dlg-type') || 'confirm';
+    var panel = document.getElementById('controls-panel');
+    if (!panel) return;
+    var rules = {
+      'confirm':   { 'dlg-lines':true, 'dlg-guide':true, 'dlg-checkbox':true, 'dlg-btns':true, 'dlg-note':true },
+      'input':     { 'dlg-lines':false, 'dlg-guide':false, 'dlg-checkbox':false, 'dlg-btns':true, 'dlg-note':true },
+      'progress':  { 'dlg-lines':false, 'dlg-guide':false, 'dlg-checkbox':false, 'dlg-btns':false, 'dlg-note':false },
+      'selection': { 'dlg-lines':false, 'dlg-guide':false, 'dlg-checkbox':false, 'dlg-btns':true, 'dlg-note':true },
+      'permission':{ 'dlg-lines':true, 'dlg-guide':true, 'dlg-checkbox':true, 'dlg-btns':true, 'dlg-note':true }
+    };
+    var r = rules[type] || rules['confirm'];
+    ['dlg-lines','dlg-guide','dlg-checkbox','dlg-btns','dlg-note'].forEach(function(g) {
+      var el = panel.querySelector('[data-group="' + g + '"]');
+      if (el) {
+        var row = el.closest('.ctrl-row');
+        if (row) row.style.display = r[g] ? '' : 'none';
+      }
     });
-    d.appendChild(list);
-    d.appendChild(dlgBtnsHorizontal([{text:'取消',type:'secondary'},{text:'确定',type:'primary'}]));
-    document.getElementById('dlg-selection').appendChild(d);
-  })();
+  }
 
-  // 11. PermissionDialog — 图标32×32在标题上方，多按钮竖排
-  (function(){
-    const d = dlgContainer();
-    // 权限图标在标题上方
-    const icon = document.createElement('div');
-    icon.style.cssText = 'width:32px;height:32px;border-radius:8px;background:var(--bb-primary);opacity:0.3;margin:0 auto';
-    d.appendChild(icon);
-    d.appendChild(dlgTitle('是否允许"百度地图"获取位置信息'));
-    // 定位选项区域
-    const opts = document.createElement('div');
-    opts.style.cssText = 'padding:0 20px;display:flex;gap:12px';
-    let permSelected = 1;
-    const optEls = [];
-    ['模糊定位','精准定位'].forEach((label,i) => {
-      const opt = document.createElement('div');
-      opt.style.cssText = 'flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer';
-      const preview = document.createElement('div');
-      preview.style.cssText = 'width:100%;height:99px;border-radius:12px;background:var(--surface_container);border:2px solid ' + (i === permSelected ? 'var(--bb-primary)' : 'transparent');
-      opt.appendChild(preview);
-      const lbl = document.createElement('span');
-      lbl.style.cssText = 'font-size:14px;font-weight:380;color:var(--on_surface)';
-      lbl.textContent = label;
-      opt.appendChild(lbl);
-      opt.addEventListener('click', () => {
-        permSelected = i;
-        optEls.forEach((el,j) => { el.querySelector('div').style.borderColor = j === i ? 'var(--bb-primary)' : 'transparent'; });
-      });
-      optEls.push(opt);
-      opts.appendChild(opt);
-    });
-    d.appendChild(opts);
-    d.appendChild(dlgNote('*正文折行时备注文字居左，可折行','left'));
-    d.appendChild(dlgBtnsVertical([
-      {text:'基础按钮',type:'secondary'},
-      {text:'始终允许',type:'primary'},
-      {text:'仅在使用中允许',type:'secondary'},
-      {text:'本次使用允许',type:'secondary'},
-      {text:'拒绝',type:'secondary'}
-    ]));
-    document.getElementById('dlg-permission').appendChild(d);
-  })();
+  dlgControls.addEventListener('click', function(e) {
+    var pill = e.target.closest('.tb-pill');
+    if (!pill) return;
+    var group = pill.parentElement;
+    group.querySelectorAll('.tb-pill').forEach(function(p) { p.classList.remove('tb-pill--active'); });
+    pill.classList.add('tb-pill--active');
+    renderDialogPreview();
+    updateControlsVisibility();
+  });
+
+  renderDialogPreview();
+
+  var observer = new MutationObserver(function() { updateControlsVisibility(); });
+  var panel = document.getElementById('controls-panel');
+  if (panel) observer.observe(panel, { childList: true, subtree: true });
 })();
 
 /* ============================================================

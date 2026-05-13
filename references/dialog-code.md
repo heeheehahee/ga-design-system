@@ -25,6 +25,12 @@ description: 弹窗 CSS + JS 工具函数。规范见 dialog.md
   padding: 0 12px;
 }
 
+/* 底部弹窗 */
+.dialog-mask--bottom {
+  align-items: flex-end;
+  padding: 0 12px 16px;
+}
+
 /* 弹窗容器 */
 .dialog {
   width: 100%;
@@ -214,6 +220,7 @@ class Dialog {
     this.checkbox = options.checkbox || null;
     this.options = options.options || null;
     this.illustration = options.illustration || false;
+    this.position = options.position || 'center';
     this.onButton = options.onButton || null;
     this.onClose = options.onClose || null;
     this._build();
@@ -221,7 +228,7 @@ class Dialog {
 
   _build() {
     this.mask = document.createElement('div');
-    this.mask.className = 'dialog-mask';
+    this.mask.className = 'dialog-mask' + (this.position === 'bottom' ? ' dialog-mask--bottom' : '');
     this.mask.addEventListener('click', (e) => {
       if (e.target === this.mask) this.close();
     });

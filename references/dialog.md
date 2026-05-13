@@ -21,8 +21,12 @@ source: Figma ga_component / Dialog (node 198:7122)
 | 区域间距 | 16 |
 | 背景 | `surface_pop_window`（Light: #f7f7f7 / Dark: #242424） |
 | 遮罩 | `mask`（Light: rgba(0,0,0,0.2) / Dark: rgba(0,0,0,0.6)） |
-| 位置 | 页面垂直水平居中 |
+| 位置 | 居中（默认）/ 底部（`position: 'bottom'`，贴近屏幕底部，底部间距 16px） |
 | 材质 | Default（纯色）/ Frosted（毛玻璃）/ Glass（禁用） |
+
+### 内嵌组件边距规则
+
+弹窗内放置输入框等子组件时，子组件的外边距以弹窗容器边距为准（`padding: 0 24px`），不使用子组件自身的默认边距。输入框使用通栏模式（`input-wrap--full`），由弹窗容器的 24px 内边距控制左右间距。
 
 ## 弹窗结构
 
