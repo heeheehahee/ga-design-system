@@ -52,7 +52,7 @@ cd ~/.claude/commands/ga-gh-design && git pull --quiet 2>/dev/null
 | 预编译 CSS/JS | `ga-design-system.css` + `ga-design-system.js` |
 | 页面调试工具 | `debug-tool-code.md` — FAB + 抽屉控件面板，内置暗色模式，新页面必装 |
 | 页面骨架 | `skeleton-code.md` |
-| 组件预览 | `设计组件库.html` — 交互预览，明暗/主色切换 |
+| 组件预览 | `design-system-preview.html` — 交互预览，明暗/主色切换 |
 
 ---
 

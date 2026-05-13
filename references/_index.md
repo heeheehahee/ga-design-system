@@ -235,4 +235,4 @@ ui/
 
 ### 预览
 
-[设计组件库.html](设计组件库.html) — 所有已实现组件的交互预览，支持明暗/主色切换
+[design-system-preview.html](design-system-preview.html) — 所有已实现组件的交互预览，支持明暗/主色切换
