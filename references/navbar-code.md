@@ -46,16 +46,19 @@ description: 标题栏 + 底 Tab 栏的 CSS + JS 代码。设计规范见 navbar
 .theme-dark .navbar-icon[disabled] { opacity: 0.4; }
 ```
 
-### 大标题 H5
+### 大标题套件（大标题 + 小标题 + 滚动收起）
+
+> **内置行为：** 大标题上滑自动收起为小标题（116→56），这不是可选功能。调用大标题时必须完整复制以下 HTML + CSS + JS 三部分。
+
+**HTML — 大标题 + 小标题同时存在：**
 
 ```html
+<!-- 大标题（首屏展示） -->
 <div class="navbar-lg">
   <div class="navbar-topbar">
     <div class="navbar-icon"><!-- 返回图标 SVG 从 icons.md 取 --></div>
     <div class="navbar-icons-right">
-      <div class="navbar-icon"><!-- 编辑图标 --></div>
-      <div class="navbar-icon"><!-- 搜索图标 --></div>
-      <div class="navbar-icon"><!-- 更多图标 --></div>
+      <div class="navbar-icon"><!-- 图标 --></div>
     </div>
   </div>
   <div class="navbar-title-area">
@@ -63,12 +66,26 @@ description: 标题栏 + 底 Tab 栏的 CSS + JS 代码。设计规范见 navbar
     <!-- <div class="navbar-subtitle-lg">辅助标题</div> -->
   </div>
 </div>
+<!-- 小标题（滚动后展示） -->
+<div class="navbar-sm">
+  <div class="navbar-sm__left">
+    <div class="navbar-icon"><!-- 返回图标 SVG 从 icons.md 取（同上） --></div>
+  </div>
+  <div class="navbar-sm__title-group">
+    <div class="navbar-sm__title">页面标题</div>
+  </div>
+  <div class="navbar-sm__right">
+    <div class="navbar-icon"><!-- 图标（同上） --></div>
+  </div>
+</div>
 ```
 
+**CSS：**
+
 ```css
+/* 大标题 */
 .navbar-lg {
   width: 100%;
-  backdrop-filter: blur(66px);
 }
 .navbar-topbar {
   display: flex;
@@ -84,7 +101,7 @@ description: 标题栏 + 底 Tab 栏的 CSS + JS 代码。设计规范见 navbar
 .navbar-title-lg {
   font-size: 32px;
   font-weight: 330;
-  color: var(--on-surface);
+  color: var(--on_surface);
 }
 .navbar-subtitle-lg {
   font-size: 14px;
@@ -92,6 +109,58 @@ description: 标题栏 + 底 Tab 栏的 CSS + JS 代码。设计规范见 navbar
   color: rgba(0,0,0,0.6);
 }
 .theme-dark .navbar-subtitle-lg { color: rgba(255,255,255,0.6); }
+
+/* 小标题（收起态） */
+.navbar-sm {
+  position: relative;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 6px 12px;
+}
+.navbar-sm__left, .navbar-sm__right { display: flex; gap: 8px; }
+.navbar-sm__title-group {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  white-space: nowrap;
+}
+.navbar-sm__title {
+  font-size: 18px;
+  font-weight: 380;
+  color: var(--on_surface);
+}
+.navbar-sm__subtitle {
+  font-size: 13px;
+  font-weight: 380;
+  color: rgba(0,0,0,0.6);
+}
+.theme-dark .navbar-sm__subtitle { color: rgba(255,255,255,0.6); }
+```
+
+**JS — 滚动切换（必须）：**
+
+```js
+// 大标题 ↔ 小标题滚动切换
+const scrollArea = document.querySelector('.content');
+const navLg = document.querySelector('.navbar-lg');
+const navSm = document.querySelector('.navbar-sm');
+
+let collapsed = false;
+scrollArea.addEventListener('scroll', () => {
+  if (scrollArea.scrollTop > 20 && !collapsed) {
+    collapsed = true;
+    navLg.style.display = 'none';
+    navSm.style.display = 'flex';
+  } else if (scrollArea.scrollTop <= 20 && collapsed) {
+    collapsed = false;
+    navLg.style.display = 'block';
+    navSm.style.display = 'none';
+  }
+});
 ```
 
 ### 中标题Q18 H5
@@ -284,28 +353,7 @@ description: 标题栏 + 底 Tab 栏的 CSS + JS 代码。设计规范见 navbar
 
 ### 大标题 → 小标题滚动切换 JS
 
-```js
-const scrollArea = document.querySelector('.scroll-content');
-const navLg = document.querySelector('.navbar-lg');
-const navSm = document.querySelector('.navbar-sm');
-navSm.style.display = 'none';
-
-let collapsed = false;
-scrollArea.addEventListener('scroll', () => {
-  if (scrollArea.scrollTop > 20 && !collapsed) {
-    collapsed = true;
-    navLg.style.display = 'none';
-    navSm.style.display = 'flex';
-    // 浮起态：图标切换为玻璃材质
-    navSm.querySelectorAll('.navbar-icon').forEach(el => el.classList.add('glass-btn'));
-  } else if (scrollArea.scrollTop <= 20 && collapsed) {
-    collapsed = false;
-    navLg.style.display = 'block';
-    navSm.style.display = 'none';
-    navSm.querySelectorAll('.navbar-icon').forEach(el => el.classList.remove('glass-btn'));
-  }
-});
-```
+> 已合并至上方「大标题套件」，调用大标题时直接从套件复制完整代码即可。
 
 ---
 
