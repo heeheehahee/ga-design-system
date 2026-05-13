@@ -5,6 +5,8 @@ description: GA/GH 设计 — Getapps 设计系统组件代码库。写代码时
 
 # Getapps 设计系统 — 组件代码库
 
+**职责：做原型页面。** 创建项目、调用组件、设计还原、迭代优化。不负责制作/更新组件规范（那是 `/spec-maker` 的事）。
+
 经过调试验证的移动端组件代码。写代码前先读 `_index.md` 了解全局规则。
 
 所有文件位于 `~/.claude/commands/ga-gh-design/references/`。
