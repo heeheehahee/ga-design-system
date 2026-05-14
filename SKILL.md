@@ -36,25 +36,52 @@ cd ~/.claude/commands/ga-gh-design && git pull --quiet 2>/dev/null
 
 ## 快速查找
 
+### 基础 Token
+
 | 需要什么 | 查哪个文件 |
 |---------|-----------|
 | 全局规则（间距/命名/禁止行为） | `_index.md` |
-| 颜色 Token | `color.md` — 62 个 Token，`var(--Token名)` |
-| 字体/圆角/投影 | `typography.md` / `border-radius.md` / `elevation.md` |
-| 按钮 | `button-code.md` — Base/Install/Glass/React 等 |
-| 标题栏 | `navbar-code.md` + `navbar.md`（使用规则和参数） |
-| 底 Tab 栏 / 状态栏 / 小白条 | `navbar-code.md` |
-| 提示气泡 | `tooltip-code.md` — 8 方向 |
-| 弹窗 | `dialog.md` — 7 种类型（无代码文件） |
-| 轻提示 Toast | `toast-code.md` |
-| 信息提示 NoticeBar | `noticebar-code.md` |
-| 加载 Loading | `loading-code.md` |
-| Chips 标签栏 | `chips-code.md` |
-| 图标 SVG | `icons.md` — 标题栏 19 + Tab 5 + 媒体 4 + 反馈 4 |
-| 预编译 CSS/JS | `ga-design-system.css` + `ga-design-system.js` |
-| 页面调试工具 | `debug-tool-code.md` — FAB + 抽屉控件面板，内置暗色模式，新页面必装 |
-| 页面骨架 | `skeleton-code.md` |
-| 组件预览 | `design-system-preview.html` — 交互预览，明暗/主色切换 |
+| 颜色 Token | `color.md` — 66 个 Token，`var(--Token名)` |
+| 字体 | `typography.md` — 15 个 Text Style |
+| 圆角 | `border-radius.md` — 8 级梯度 |
+| 阴影 | `elevation.md` — 4 级投影 |
+
+### 组件（决策 → 代码）
+
+| 组件 | 决策指南 | 代码（复制用） |
+|------|---------|--------------|
+| 按钮 | `button.md` | `button-code.md` |
+| 标题栏 / Tab 栏 / 状态栏 | `navbar.md` | `navbar-code.md` |
+| 弹窗 | `dialog.md` | `dialog-code.md` |
+| 输入框 | `input.md` | `input-code.md` |
+| 列表 | `list.md` | `list-code.md` |
+| 抽屉 | `drawer.md` | `drawer-code.md` |
+| 分段按钮 | `segmented-controls.md` | `segmented-controls-code.md` |
+| Checkbox | `checkbox.md` | `checkbox-code.md` |
+| Switch 开关 | `switch.md` | `switch-code.md` |
+| Toast 轻提示 | `toast.md` | `toast-code.md` |
+| NoticeBar 信息提示 | `noticebar.md` | `noticebar-code.md` |
+| Loading 加载 | `loading.md` | `loading-code.md` |
+| Tooltip 提示气泡 | `tooltip.md` | `tooltip-code.md` |
+| Chips 标签栏 | — | `chips-code.md` |
+| 自定义滚动条 | — | `scrollbar-code.md` |
+| 骨架占位块 | — | `skeleton-code.md` |
+| 星级评分 | — | `star-rating-code.md` |
+| 二级文字标签 | — | `underline-tabbar-code.md` |
+| 二级胶囊标签 | — | `sub-chips-code.md` |
+| PopupMenu 近手菜单 | — | `popup-menu-code.md` |
+| 评分分布条 | — | `rating-bars-code.md` |
+| 内容卡片集 | — | `content-cards-code.md` |
+| 底部操作栏 | — | `bottom-action-bar-code.md` |
+
+### 资源 & 工具
+
+| 需要什么 | 查哪个文件 |
+|---------|-----------|
+| 图标 SVG | `icons.md` |
+| 页面调试工具 | `debug-tool-code.md` — 新页面必装 |
+| 页面骨架模板 | `page-template-code.md` |
+| 组件预览（人看） | `design-system-preview.html` |
 
 ---
 
