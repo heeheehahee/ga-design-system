@@ -15,114 +15,69 @@ source: Figma ga_component (node 372:9273)
 
 | 维度 | 选项 |
 |------|------|
-| 形态 | 独立（每项单独卡片，gap 8px）/ 组合（一张卡片）/ 通栏（无卡片背景） |
-| 左侧区域 | 无 / 缩进 checkmark / 图标（28×28 套底） |
-| 辅助文案 | 无 / 有（标题下方，14px/330） |
-| 右侧功能区 | 无 / 12 种类型 |
+| 形态 | 独立（每项单独卡片）/ 组合（一张卡片内多项）/ 通栏（无卡片背景） |
+| 左侧区域 | 无 / 缩进 checkmark / 图标（圆角套底） |
+| 辅助文案 | 无 / 有（标题下方副文字） |
+| 右侧功能区 | 无 / 13 种类型（见下方） |
 
 任意维度自由组合均有效。
 
 ---
 
-## 基础属性
+## 形态选择
 
-| 属性 | 值 |
-|------|------|
-| 容器 padding | 0 12px |
-| 卡片背景 | `container_list` |
-| 卡片圆角 | 20px |
-| 行 padding | 14px 16px |
-| 行内 gap | 14px |
-| 分割线 | 1px `outline`（left/right 16px 缩进） |
-| 无分割线 | `.list-item--no-divider` |
-| 分组标题 padding | 20px 16px 8px（上方分隔分组，下方紧贴卡片） |
-| 底部说明 padding | 8px 16px 20px |
-| 按下态 | `surface_container` |
-
----
-
-## 形态
-
-| 形态 | 说明 | 关键 class |
-|------|------|-----------|
-| 独立 | 每项独立卡片，间距 8px | `.list-item--standalone` 每项包在单独 `.list-card` |
-| 组合 | 多项在一张卡片内 | `.list-item--top/middle/bottom` 在同一个 `.list-card` |
-| 通栏 | 无卡片背景，无容器 padding | `.list-card` 去掉 background + border-radius |
-
----
-
-## 文本样式
-
-| 元素 | 字号 | 字重 | Token |
-|------|------|------|-------|
-| 标题 | 17px | 380 | `on_surface` |
-| 辅助文案 | 14px | 330 | `on_surface_tertiary` |
-| 右侧文字 | 14px | 380 | `on_surface_tertiary` |
-| 分组标题 | 14px | 380 | `gray` |
-| 底部说明 | 13px | 330 | `on_surface_tertiary` |
-| 选中态标题 | 17px | 380 | `primary` |
+| 形态 | 适用场景 | 关键 class |
+|------|---------|-----------|
+| 独立 | 每项可独立操作、间距明显 | `.list-item--standalone` 各自独立 `.list-card` |
+| 组合 | 设置页、属性列表等紧凑排列 | `.list-item--top/middle/bottom` 在同一 `.list-card` |
+| 通栏 | 无卡片背景，全宽展示 | `.list-card` 去掉背景和圆角 |
 
 ---
 
 ## 左侧区域
 
-| 类型 | class | 说明 |
-|------|-------|------|
-| 无 | — | 默认无左侧 |
-| 缩进 checkmark | `.list-item__checkmark` 放在标题前 | 20×20 蓝勾，用于左侧勾选 |
-| 图标 | `.list-item__icon` | 28×28 圆角 8px，bg `surface_container` |
+| 类型 | 何时用 | class |
+|------|--------|-------|
+| 无 | 大多数列表 | — |
+| 缩进 checkmark | 左侧勾选 | `.list-item__checkmark` |
+| 图标 | 需要视觉标识（设置项、应用列表） | `.list-item__icon` |
 
 ---
 
 ## 右侧功能区（13 种）
 
-| 类型 | class / 实现 | 说明 |
-|------|-------------|------|
-| 单独进入二级 | `.list-item__trailing--arrow` | 28×28 圆底 + chevron |
-| 整个列表进入二级 | `.list-item__trailing--arrow-bare` | 8×14 裸箭头 |
-| 状态+进入二级 | `.list-item__trailing` 包裹文字+裸箭头 | trailing 内 gap 8px |
-| 状态切换 | `.list-item__trailing--status` | 14px/330/quaternary 文字 + 10×16 上下箭头 |
-| 开关 | `.switch` | 复用 Switch 组件 |
-| 单选 | `.list-item__checkmark` | 20×20 蓝勾 + 标题变 primary |
-| 纯文字 | `.list-item__trailing-text` | 14px/380/tertiary |
-| 小按钮 | pill 样式 | padding 8px 20px, radius 999px |
-| 添加 | SVG 28×28 | 蓝色圆底 + 白色 ＋ |
-| 去除 | SVG 28×28 | 红色圆底 + 白色 － |
-| 展开收起 | SVG 28×28 | 浅灰圆底 + 向下 chevron（旋转切换） |
-| 清除 | SVG 28×28 | 浅灰圆底 + × |
-| loading | SVG 26×26 | 圆环旋转 |
+| 类型 | 何时用 | class |
+|------|--------|-------|
+| 单独进入二级 | 只有箭头可点 | `.list-item__trailing--arrow` |
+| 整行进入二级 | 整行可点击跳转 | `.list-item__trailing--arrow-bare` |
+| 状态+进入二级 | 显示当前值+跳转 | trailing 内文字 + arrow-bare |
+| 状态切换 | 上下切换值 | `.list-item__trailing--status` |
+| 开关 | 布尔值控制 | `.switch` 组件 |
+| 单选 | 列表中选一项 | checkmark + 标题变色 |
+| 纯文字 | 只显示状态文字 | `.list-item__trailing-text` |
+| 小按钮 | 行内操作 | pill 样式 |
+| 添加 | 新增项 | 蓝色圆底 + 白色 ＋ |
+| 去除 | 删除项 | 红色圆底 + 白色 － |
+| 展开收起 | 折叠内容 | chevron 旋转 |
+| 清除 | 清除内容 | 浅灰圆底 + × |
+| loading | 异步操作中 | 圆环旋转 |
 
 ---
 
-## 圆角（组合形态按位置）
+## 位置圆角
 
-| 位置 | border-radius |
-|------|--------------|
-| standalone | 20px |
-| top | 20px 20px 0 0 |
-| middle | 0 |
-| bottom | 0 0 20px 20px |
+组合形态时，根据行在卡片中的位置决定圆角：
 
----
-
-## 行结构
-
-```
-[.list-container, padding 0 12px]
-  [.list-group-title (可选), padding 20px 16px 8px] — 14px/380/gray
-  [.list-card, bg container_list, radius 20px]
-    [.list-item, padding 14px 16px, row, gap 14px]
-      [左侧区域 (可选)] — checkmark 或 icon
-      [.list-item__text, column]
-        [.list-item__title] — 17px/380
-        [.list-item__desc (可选)] — 14px/330
-      [右侧功能区 (可选)] — trailing 容器 gap 8px
-  [.list-footer (可选), padding 8px 16px 20px] — 13px/330/tertiary
-```
+| 位置 | 说明 |
+|------|------|
+| standalone | 单独一项，四角圆 |
+| top | 卡片第一项，顶部圆角 |
+| middle | 中间项，无圆角 |
+| bottom | 卡片最后一项，底部圆角 |
 
 ---
 
-## 调用方式
+## 调用方式（HTML 结构）
 
 ```html
 <!-- 组合形态 + 右侧箭头 -->
@@ -178,3 +133,5 @@ source: Figma ga_component (node 372:9273)
   </div>
 </div>
 ```
+
+> 所有精确样式值（间距、字号、圆角、颜色）见 [list-code.md](list-code.md)

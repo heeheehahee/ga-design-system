@@ -123,8 +123,12 @@ description: 标题栏 + 底 Tab 栏的 CSS + JS 代码。设计规范见 navbar
 .navbar-sm__title-group {
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  bottom: 0;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   white-space: nowrap;
 }
@@ -287,8 +291,12 @@ scrollArea.addEventListener('scroll', () => {
 .navbar-sm__title-group {
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  bottom: 0;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   white-space: nowrap;
 }

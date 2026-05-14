@@ -792,6 +792,9 @@ body {
   transition: background 0.2s, box-shadow 0.3s;
 }
 .navbar-icon:active:not(.glass-btn) { opacity: 0.6; }
+.navbar-icon[disabled] { opacity: 0.3; pointer-events: none; }
+[data-theme="dark"] .navbar-icon:active:not(.glass-btn) { opacity: 0.5; }
+[data-theme="dark"] .navbar-icon[disabled] { opacity: 0.4; }
 .navbar-icon svg { width: 40px; height: 40px; }
 .glass-btn {
   position: relative;
