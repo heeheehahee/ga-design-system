@@ -2010,6 +2010,18 @@ body.theme-light .homebar__line {
 #debug-tool-phone .popup-menu__item--selected .popup-menu__title { color: var(--primary); }
 #debug-tool-phone .popup-menu__check { width: 20px; height: 20px; flex-shrink: 0; background: var(--primary); -webkit-mask: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M17.4687 6.28732C17.9089 5.75551 17.8347 4.96755 17.3028 4.52735C16.771 4.08715 15.9831 4.16141 15.5429 4.69322L8.94602 12.6629L5.53427 9.25116C5.04612 8.763 4.25466 8.763 3.76651 9.25116C3.27835 9.73931 3.27835 10.5308 3.76651 11.0189L8.14393 15.3964C8.50702 15.7594 9.03789 15.8525 9.48696 15.6754C9.68259 15.6012 9.86224 15.4767 10.0052 15.304L17.4687 6.28732Z' fill='black'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M17.4687 6.28732C17.9089 5.75551 17.8347 4.96755 17.3028 4.52735C16.771 4.08715 15.9831 4.16141 15.5429 4.69322L8.94602 12.6629L5.53427 9.25116C5.04612 8.763 4.25466 8.763 3.76651 9.25116C3.27835 9.73931 3.27835 10.5308 3.76651 11.0189L8.14393 15.3964C8.50702 15.7594 9.03789 15.8525 9.48696 15.6754C9.68259 15.6012 9.86224 15.4767 10.0052 15.304L17.4687 6.28732Z' fill='black'/%3E%3C/svg%3E") center / contain no-repeat; }
 #debug-tool-phone .popup-menu__divider { height: 1px; margin: 4px 0; background: var(--outline); }
+
+/* Scrollbar 自定义滚动条 — 来源 scrollbar-code.md */
+.custom-scrollbar { overflow-y: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.1) transparent; }
+.custom-scrollbar:active, .custom-scrollbar:hover { scrollbar-color: rgba(0,0,0,0.3) transparent; }
+.custom-scrollbar::-webkit-scrollbar { width: 12px; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 999px; border: 4px solid transparent; background-clip: content-box; }
+.custom-scrollbar:active::-webkit-scrollbar-thumb, .custom-scrollbar::-webkit-scrollbar-thumb:active { background: rgba(0,0,0,0.3); border: 3px solid transparent; background-clip: content-box; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+[data-theme="dark"] .custom-scrollbar { scrollbar-color: rgba(255,255,255,0.2) transparent; }
+[data-theme="dark"] .custom-scrollbar:active, [data-theme="dark"] .custom-scrollbar:hover { scrollbar-color: rgba(255,255,255,0.3) transparent; }
+[data-theme="dark"] .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border: 4px solid transparent; background-clip: content-box; }
+[data-theme="dark"] .custom-scrollbar:active::-webkit-scrollbar-thumb, [data-theme="dark"] .custom-scrollbar::-webkit-scrollbar-thumb:active { background: rgba(255,255,255,0.3); border: 3px solid transparent; background-clip: content-box; }
 </style>
 </head>
 <body>
@@ -2399,6 +2411,7 @@ body.theme-light .homebar__line {
       <div><span>正文行数</span><div data-group="dlg-lines" style="display:flex;gap:6px;flex-wrap:wrap">
         <button class="tb-pill tb-pill--active" data-val="single">单行</button>
         <button class="tb-pill" data-val="multi">多行</button>
+        <button class="tb-pill" data-val="100">100行</button>
       </div></div>
       <div><span>引导图</span><div data-group="dlg-guide" style="display:flex;gap:6px;flex-wrap:wrap">
         <button class="tb-pill tb-pill--active" data-val="hide">隐藏</button>
@@ -4463,7 +4476,7 @@ class Tooltip {
     var lines = dlgGetVal('dlg-lines') || 'single';
     var showCheckbox = dlgGetVal('dlg-checkbox') === 'show';
     var btnCount = parseInt(dlgGetVal('dlg-btns') || '2');
-    var isMulti = lines === 'multi';
+    var isMulti = lines === 'multi' || lines === '100';
     var guideMode = dlgGetVal('dlg-guide') || 'hide';
     var d = dlgContainer();
     if (guideMode === 'large') {
@@ -4478,7 +4491,17 @@ class Tooltip {
       d.appendChild(icon);
     }
     d.appendChild(dlgTitle('标题'));
-    d.appendChild(dlgBody(isMulti ? '正文，多行时居左对齐，多行时居左对齐，多行时居左对齐' : '正文，单行时居中对齐'));
+    var bodyText;
+    if (lines === '100') {
+      var bodyLines = [];
+      for (var li = 1; li <= 100; li++) bodyLines.push('第 ' + li + ' 行正文内容，用于测试超长内容滚动效果');
+      bodyText = bodyLines.join('\n');
+    } else {
+      bodyText = isMulti ? '正文，多行时居左对齐，多行时居左对齐，多行时居左对齐' : '正文，单行时居中对齐';
+    }
+    var bodyEl = dlgBody(bodyText);
+    if (lines === '100') bodyEl.style.whiteSpace = 'pre-wrap';
+    d.appendChild(bodyEl);
     d.appendChild(dlgNote(isMulti ? '*正文折行时备注文字居左，可折行' : '*备注文字单行居中对齐', isMulti ? 'left' : 'center'));
     if (showCheckbox) {
       var ck = document.createElement('div');
@@ -4488,6 +4511,23 @@ class Tooltip {
       d.appendChild(ck);
     }
     d.appendChild(dlgBtnsAuto());
+    // 滚动规则：弹窗高度 > 手机容器 70% 时，正文区出现滚动
+    if (lines === '100') {
+      requestAnimationFrame(function() {
+        var phoneH = 871;
+        var maxH = phoneH * 0.7;
+        if (d.offsetHeight > maxH) {
+          var others = Array.from(d.children).filter(function(c) { return c !== bodyEl; });
+          var used = others.reduce(function(s, c) { return s + c.offsetHeight; }, 0);
+          var gap = 16;
+          var padding = 48;
+          var bodyMax = maxH - used - gap * (d.children.length - 1) - padding;
+          bodyEl.style.maxHeight = bodyMax + 'px';
+          bodyEl.classList.add('custom-scrollbar');
+          d.style.maxHeight = maxH + 'px';
+        }
+      });
+    }
     return d;
   }
 

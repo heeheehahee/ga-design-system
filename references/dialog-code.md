@@ -64,6 +64,8 @@ description: 弹窗 CSS + JS 工具函数。规范见 dialog.md
 }
 .dialog__body--single { text-align: center; }
 .dialog__body--multi { text-align: left; }
+/* 内容超高时加 .custom-scrollbar（来自 scrollbar-code.md） */
+.dialog__body--scrollable {}
 
 /* 备注 */
 .dialog__note {
@@ -326,6 +328,26 @@ class Dialog {
 
     this.mask.appendChild(d);
     this.el = d;
+    this._checkScroll();
+  }
+
+  _checkScroll() {
+    requestAnimationFrame(() => {
+      const maxH = window.innerHeight * 0.7;
+      if (this.el.offsetHeight > maxH) {
+        const body = this.el.querySelector('.dialog__body');
+        if (body) {
+          const others = Array.from(this.el.children).filter(c => c !== body);
+          const used = others.reduce((s, c) => s + c.offsetHeight, 0);
+          const gap = parseInt(getComputedStyle(this.el).gap) || 16;
+          const padding = 48; // 上下各24
+          const bodyMax = maxH - used - gap * (this.el.children.length - 1) - padding;
+          body.style.maxHeight = bodyMax + 'px';
+          body.classList.add('custom-scrollbar');
+          this.el.style.maxHeight = maxH + 'px';
+        }
+      }
+    });
   }
 
   close() {

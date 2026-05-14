@@ -221,6 +221,7 @@ ui/
 | — | [rating-bars-code.md](rating-bars-code.md) | RatingBars 评分分布条（大数字+星星+5 条进度条，依赖 StarRating） |
 | — | [content-cards-code.md](content-cards-code.md) | 内容卡片集：ReviewCard 评论卡 / FeedCard 攻略卡 / AppCard 应用卡 |
 | — | [bottom-action-bar-code.md](bottom-action-bar-code.md) | BottomActionBar 底部操作栏（渐变遮罩 + 主按钮 + 可选辅助按钮） |
+| — | [scrollbar-code.md](scrollbar-code.md) | Scrollbar 自定义滚动条（Default 4px / Activated 6px，加 `.custom-scrollbar` 即用） |
 | [checkbox.md](checkbox.md) | [checkbox-code.md](checkbox-code.md) | Checkbox 多选（Default/Media 2 类型 × 4 状态） |
 | [switch.md](switch.md) | [switch-code.md](switch-code.md) | Switch 开关（On/Off × Disabled/Loading 5 状态） |
 | [drawer.md](drawer.md) | [drawer-code.md](drawer-code.md) | Drawer 底部抽屉（Max/Medium/Min 3 档 + 玻璃材质） |

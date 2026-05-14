@@ -24,6 +24,17 @@ source: Figma ga_component / Dialog (node 198:7122)
 | 位置 | 居中（默认）/ 底部（`position: 'bottom'`，贴近屏幕底部，底部间距 16px） |
 | 材质 | Default（纯色）/ Frosted（毛玻璃）/ Glass（禁用） |
 
+### 内容滚动规则
+
+弹窗高度超过屏幕高度 70% 时，内容区域（Body）出现垂直滚动条，标题区和按钮区固定不滚动。
+
+| 属性 | 值 |
+|------|------|
+| 触发条件 | 弹窗高度 > 屏幕高度 × 70% |
+| 滚动区域 | Body 正文区（不含 TitleArea 和 ButtonArea） |
+| max-height | `calc(70vh - TitleArea高度 - ButtonArea高度 - 容器上下padding)` |
+| overflow-y | auto |
+
 ### 内嵌组件边距规则
 
 弹窗内放置输入框等子组件时，子组件的外边距以弹窗容器边距为准（`padding: 0 24px`），不使用子组件自身的默认边距。输入框使用通栏模式（`input-wrap--full`），由弹窗容器的 24px 内边距控制左右间距。
