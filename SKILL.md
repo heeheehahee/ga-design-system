@@ -359,6 +359,7 @@ Getapps 是小米应用商店海外版，基于 HyperOS 3 设计语言。
 1. 从 `page-template-code.md` 复制页面骨架（HTML + CSS + JS）
 2. 安装 `debug-tool-code.md`（新页面必装）
 3. 配置 `:root` 颜色变量（从 color.md 复制需要的 Token）
+4. 在项目目录执行 `git init && git add -A && git commit -m "初始化项目"`
 
 **组件调用（有组件时）：**
 1. 读决策指南（如 `navbar.md`）→ 确定用哪个变体
@@ -385,6 +386,22 @@ Getapps 是小米应用商店海外版，基于 HyperOS 3 设计语言。
 1. 该模块代码可正常渲染（不依赖未完成模块）
 2. 告知用户当前模块完成，列出剩余模块
 3. 等待用户指示下一个模块
+
+**版本控制：**
+
+自动保存时机：
+- 项目初始化完成后
+- 每个模块完成后
+- 所有模块拼合 + 检查通过后
+
+用户随时可以说"保存一下"手动触发一次存档。
+
+命令：`git add -A && git commit -m "[说明]"`
+
+**用户说"回退"/"撤销"时：**
+1. `git log --oneline -10` 展示版本列表
+2. 用户选择要回到的版本
+3. `git checkout <commit> -- . && git commit -m "回退到：[版本说明]"`
 
 ### Phase 2: 检查
 
