@@ -101,6 +101,9 @@
   /* Toast 组件级变量 */
   --toast-bg: #242424;
   --toast-text: rgba(255,255,255,0.6);
+
+  /* 平台外壳 */
+  --preview-bg: #09090b;
 }
 body.theme-light {
   --surface_pop_window: #f7f7f7;
@@ -187,35 +190,47 @@ body.theme-light {
   /* Toast 组件级变量 */
   --toast-bg: #FAFAFA;
   --toast-text: rgba(0,0,0,0.6);
+
+  /* 平台外壳 */
+  --preview-bg: #f7f7f7;
 }
 
 /* ============================
    页面布局
    ============================ */
+/* 全局滚动条 */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(128,128,128,0.2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(128,128,128,0.35); }
+* { scrollbar-width: thin; scrollbar-color: rgba(128,128,128,0.2) transparent; }
+
 body {
   font-family: "MiSans Latin VF", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
-  background: var(--surface);
+  background: var(--preview-bg);
   color: var(--on_surface_secondary);
   display: flex;
   height: 100vh;
-  padding-top: 52px;
+  padding-top: 64px;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-/* 侧边导航 — 毛玻璃效果 */
+/* 侧边导航 */
 .sidebar {
   width: 200px;
-  background: var(--surface_high);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  box-shadow: 2px 0 8px rgba(0,0,0,0.15);
-  padding: 12px 0 0;
+  background: var(--preview-bg);
+  box-shadow: none;
+  padding: 44px 0 0;
   overflow-y: auto;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   z-index: 1;
+  border-right: 1px solid transparent;
+  border-image: linear-gradient(to bottom, transparent 0%, rgba(128,128,128,0.2) 20%, rgba(128,128,128,0.2) 80%, transparent 100%) 1;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 32px);
+  mask-image: linear-gradient(to bottom, transparent 0px, black 32px);
 }
 .sidebar__title {
   font-size: 20px;
@@ -223,26 +238,21 @@ body {
   letter-spacing: -0.02em;
   padding: 0 20px 20px;
   color: var(--on_surface);
-  border-bottom: 1px solid var(--outline);
-  margin-bottom: 4px;
 }
 .sidebar__group {
-  padding: 4px 0;
+  padding: 8px 0;
 }
 .sidebar__group + .sidebar__group::before {
-  content: '';
-  display: block;
-  height: 1px;
-  background: var(--outline);
-  margin: 4px 16px 8px;
+  display: none;
 }
 .sidebar__group-label {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
-  color: var(--on_surface_quaternary);
+  color: rgba(255,255,255,0.4);
   letter-spacing: 0.03em;
-  padding: 12px 20px 6px;
+  padding: 12px 20px 8px;
 }
+.theme-light .sidebar__group-label { color: rgba(0,0,0,0.35); }
 .sidebar__item {
   display: block;
   width: calc(100% - 16px);
@@ -251,18 +261,29 @@ body {
   background: none;
   text-align: left;
   font-size: 14px;
-  color: var(--on_surface_tertiary);
+  color: var(--on_surface);
   padding: 8px 12px;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
   font-family: inherit;
 }
-.sidebar__item:hover { background: var(--surface_container); color: var(--on_surface); }
+.sidebar__item:hover { background: rgba(128,128,128,0.1); color: var(--on_surface); }
 .sidebar__item--active {
-  background: rgba(5, 196, 116, 0.12);
-  color: #05C474;
+  background: rgba(128,128,128,0.15);
+  color: var(--on_surface);
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sidebar__item--active::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00E5E5;
+  flex-shrink: 0;
 }
 .sidebar__item--placeholder {
   color: var(--on_surface_octonary);
@@ -275,31 +296,29 @@ body {
 .content {
   flex: 1;
   overflow-y: auto;
-  padding: 24px 32px;
-  background: var(--surface_container_medium);
+  padding: 44px 32px 24px;
+  background: var(--preview-bg);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 32px);
+  mask-image: linear-gradient(to bottom, transparent 0px, black 32px);
 }
 .preview-panel { display: none; }
-.preview-panel--active { display: block; padding-top: 24px; }
+.preview-panel--active { display: block; }
 
 /* 右侧控制面板 */
 .controls-panel {
-  width: 240px;
-  padding: 16px;
+  width: 220px;
+  padding: 44px 16px 16px;
   overflow-y: auto;
-  box-shadow: -2px 0 8px rgba(0,0,0,0.15);
+  box-shadow: none;
   flex-shrink: 0;
-  background: var(--surface_high);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  z-index: 1;
+  background: var(--preview-bg);
+  position: relative;
+  border-left: 1px dashed rgba(128,128,128,0.25);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 32px);
+  mask-image: linear-gradient(to bottom, transparent 0px, black 32px);
 }
 .controls-panel:empty::after {
-  content: '当前组件无控制项';
-  display: block;
-  color: var(--on_surface_octonary);
-  font-size: 12px;
-  text-align: center;
-  padding-top: 40px;
+  display: none;
 }
 /* Figma 风格控制器行 */
 .ctrl-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; }
@@ -1366,20 +1385,32 @@ body.theme-light .homebar__line {
   top: 0;
   left: 0;
   right: 0;
-  height: 52px;
-  background: var(--surface_high);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--outline);
+  height: 64px;
+  background: var(--preview-bg);
+  border-bottom: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
   z-index: 100;
 }
+.topbar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--preview-bg) 0%, transparent 100%);
+  pointer-events: none;
+}
 .topbar__title {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 700;
   color: var(--on_surface);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 .topbar__controls {
   display: flex;
@@ -2082,7 +2113,7 @@ body.theme-light .homebar__line {
 
 <!-- 顶部标题栏 -->
 <header class="topbar">
-  <div class="topbar__title">组件 Code 预览平台</div>
+  <div class="topbar__title"><svg width="36" height="36" viewBox="0 0 1000 1000" fill="none" style="flex-shrink:0"><path d="M671.802 287.099C764.17 323.147 843.324 387.315 900.209 469.097L921.703 499.999L900.209 530.901C826.62 636.698 715.767 713.018 587.246 737.115L609.21 620.218C678.448 598.451 739.967 556.44 787.643 499.998C749.882 455.295 703.437 419.646 651.352 395.937L671.802 287.099Z" fill="currentColor"/><path d="M390.792 379.78C321.554 401.546 260.034 443.557 212.358 499.998C250.119 544.702 296.565 580.352 348.65 604.062L328.2 712.9C235.832 676.852 156.678 612.684 99.793 530.901L78.2988 499.999L99.793 469.097C173.382 363.3 284.236 286.982 412.757 262.885L390.792 379.78Z" fill="currentColor"/><path d="M499.999 254.293C535.423 254.293 569.995 258.193 603.344 265.606L513.168 745.525C508.792 745.645 504.402 745.706 499.999 745.706C464.578 745.706 430.008 741.806 396.662 734.394L486.836 254.473C491.21 254.353 495.598 254.293 499.999 254.293Z" fill="url(#paint0_logo)"/><defs><linearGradient id="paint0_logo" x1="500" y1="254" x2="500" y2="746" gradientUnits="userSpaceOnUse"><stop stop-color="#00F9E5"/><stop offset="1" stop-color="#00CCBC"/></linearGradient></defs></svg>组件 Code 预览平台</div>
   <div class="topbar__controls">
     <div class="topbar__group">
       <span class="topbar__group-label">暗色</span>
@@ -3153,6 +3184,9 @@ document.querySelectorAll('.sidebar__item:not(.sidebar__item--placeholder)').for
     syncControlsPanel(item.dataset.target);
   });
 });
+
+// 初始化：为默认选中项加载控制面板
+syncControlsPanel('color-preview');
 
 // 按钮内部 Tab 切换
 document.querySelectorAll('.btn-tab').forEach(tab => {
