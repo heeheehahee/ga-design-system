@@ -218,20 +218,22 @@ body {
 
 /* 侧边导航 */
 .sidebar {
-  width: 200px;
+  width: 210px;
   background: var(--preview-bg);
   box-shadow: none;
   padding: 44px 0 0;
   overflow-y: auto;
+  scrollbar-width: none;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   z-index: 1;
   border-right: 1px solid transparent;
   border-image: linear-gradient(to bottom, transparent 0%, rgba(128,128,128,0.2) 20%, rgba(128,128,128,0.2) 80%, transparent 100%) 1;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 32px);
-  mask-image: linear-gradient(to bottom, transparent 0px, black 32px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 32px, black calc(100% - 70px), transparent calc(100% - 28px), transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0px, black 32px, black calc(100% - 70px), transparent calc(100% - 28px), transparent 100%);
 }
+.sidebar::-webkit-scrollbar { display: none; }
 .sidebar__title {
   font-size: 20px;
   font-weight: 700;
@@ -250,7 +252,10 @@ body {
   font-weight: 500;
   color: rgba(255,255,255,0.4);
   letter-spacing: 0.03em;
-  padding: 12px 20px 8px;
+  padding: 12px 0 8px 36px;
+}
+.sidebar__group:first-child .sidebar__group-label {
+  padding-top: 0;
 }
 .theme-light .sidebar__group-label { color: rgba(0,0,0,0.35); }
 .theme-light .ctrl-dropdown--open .ctrl-dropdown__trigger { border-color: #00B2B2; }
@@ -263,8 +268,8 @@ body {
 .theme-light .ctrl-select:focus { border-color: #00B2B2; }
 .sidebar__item {
   display: block;
-  width: calc(100% - 16px);
-  margin: 0 8px;
+  width: calc(100% - 42px);
+  margin: 2px 18px 2px 24px;
   border: none;
   background: none;
   text-align: left;
@@ -305,7 +310,7 @@ body {
 .content {
   flex: 1;
   overflow-y: auto;
-  padding: 44px 32px 24px;
+  padding: 44px 32px 24px 32px;
   background: var(--preview-bg);
   -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 32px);
   mask-image: linear-gradient(to bottom, transparent 0px, black 32px);
@@ -315,14 +320,16 @@ body {
 
 /* 右侧控制面板 */
 .controls-panel {
-  width: 220px;
-  padding: 44px 16px 16px;
+  width: 244px;
+  padding: 44px 28px 16px;
   overflow-y: auto;
   box-shadow: none;
   flex-shrink: 0;
   background: var(--preview-bg);
   position: relative;
   border-left: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 32px);
+  mask-image: linear-gradient(to bottom, transparent 0px, black 32px);
 }
 .controls-panel::before {
   content: '';
@@ -374,10 +381,11 @@ body {
 
 /* 通用演示样式 */
 .demo-section {
-  padding: 24px;
+  padding: 0 24px 24px;
   margin-bottom: 20px;
 }
-#noticebar-preview .demo-section { padding: 12px 24px; margin-bottom: 8px; }
+.demo-section:first-child { padding-top: 0; }
+#noticebar-preview .demo-section { padding: 0 24px 12px; margin-bottom: 8px; }
 .demo-section h2 {
   font-size: 20px;
   font-weight: 600;
@@ -1102,23 +1110,6 @@ body.theme-light .homebar__line {
 .icon-card__name { font-size: 11px; color: var(--on_surface_quaternary); text-align: center; word-break: break-all; line-height: 1.3; }
 
 /* 按钮内部 Tab */
-.btn-tab {
-  padding: 10px 20px;
-  border: none;
-  background: none;
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--on_surface_quaternary);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: all 0.2s;
-}
-.btn-tab:hover { color: var(--on_surface); }
-.btn-tab--active {
-  color: var(--on_surface);
-  border-bottom-color: var(--ib-primary);
-}
 .btn-tab-panel { }
 .btn-tab-panel--active { display: block; }
 
@@ -1373,10 +1364,9 @@ body.theme-light .homebar__line {
   
 }
 .radius-row__chip {
-  width: 48px;
-  height: 48px;
-  background: var(--ib-primary);
-  opacity: 0.5;
+  width: 72px;
+  height: 72px;
+  background: rgba(128,128,128,0.15);
   flex-shrink: 0;
 }
 .radius-row__info { font-size: 13px; color: var(--on_surface); }
@@ -1391,9 +1381,8 @@ body.theme-light .homebar__line {
 }
 .spacing-row__bar {
   height: 12px;
-  background: var(--bb-primary);
+  background: rgba(128,128,128,0.15);
   border-radius: 3px;
-  opacity: 0.5;
 }
 .spacing-row__label {
   font-size: 13px;
@@ -1430,7 +1419,7 @@ body.theme-light .homebar__line {
   right: 0;
   top: 100%;
   height: 40px;
-  background: linear-gradient(to bottom, var(--preview-bg) 0%, transparent 100%);
+  background: linear-gradient(to bottom, var(--preview-bg) 40%, transparent 100%);
   pointer-events: none;
 }
 .topbar__title {
@@ -2145,9 +2134,9 @@ body.theme-light .homebar__line {
   <div class="topbar__title"><svg width="36" height="36" viewBox="0 0 1000 1000" fill="none" style="flex-shrink:0"><path d="M671.802 287.099C764.17 323.147 843.324 387.315 900.209 469.097L921.703 499.999L900.209 530.901C826.62 636.698 715.767 713.018 587.246 737.115L609.21 620.218C678.448 598.451 739.967 556.44 787.643 499.998C749.882 455.295 703.437 419.646 651.352 395.937L671.802 287.099Z" fill="currentColor"/><path d="M390.792 379.78C321.554 401.546 260.034 443.557 212.358 499.998C250.119 544.702 296.565 580.352 348.65 604.062L328.2 712.9C235.832 676.852 156.678 612.684 99.793 530.901L78.2988 499.999L99.793 469.097C173.382 363.3 284.236 286.982 412.757 262.885L390.792 379.78Z" fill="currentColor"/><path d="M499.999 254.293C535.423 254.293 569.995 258.193 603.344 265.606L513.168 745.525C508.792 745.645 504.402 745.706 499.999 745.706C464.578 745.706 430.008 741.806 396.662 734.394L486.836 254.473C491.21 254.353 495.598 254.293 499.999 254.293Z" fill="url(#paint0_logo)"/><defs><linearGradient id="paint0_logo" x1="500" y1="254" x2="500" y2="746" gradientUnits="userSpaceOnUse"><stop stop-color="#00F9E5"/><stop offset="1" stop-color="#00CCBC"/></linearGradient></defs></svg>组件 Code 预览平台</div>
   <div class="topbar__controls">
     <div class="topbar__group">
-      <span class="topbar__group-label">暗色</span>
+      <span class="topbar__group-label">Dark</span>
       <div class="topbar-toggle" id="mode-toggle"></div>
-      <span class="topbar__group-label">亮色</span>
+      <span class="topbar__group-label">Light</span>
     </div>
   </div>
 </header>
@@ -2335,6 +2324,14 @@ body.theme-light .homebar__line {
   <section id="buttons-preview" class="preview-panel">
     <div id="buttons-controls" style="display:none">
       <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:12px;color:var(--on_surface_quaternary);min-width:56px">类型</span>
+        <div style="display:flex;gap:4px" data-group="btn-type">
+          <button class="tb-pill tb-pill--active" data-val="base">基础</button>
+          <button class="tb-pill" data-val="custom">个性化</button>
+          <button class="tb-pill" data-val="install">下载</button>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
         <span style="font-size:12px;color:var(--on_surface_quaternary);min-width:56px">主色</span>
         <div style="display:flex;gap:4px" data-group="theme-buttons">
           <button class="tb-pill tb-pill--active" data-val="default">默认</button>
@@ -2343,11 +2340,6 @@ body.theme-light .homebar__line {
       </div>
     </div>
 
-    <div style="display:flex;gap:0;margin-bottom:24px;border-bottom:1px solid var(--outline)">
-      <button class="btn-tab btn-tab--active" data-btn-tab="btn-tab-base">基础按钮</button>
-      <button class="btn-tab" data-btn-tab="btn-tab-custom">个性化按钮</button>
-      <button class="btn-tab" data-btn-tab="btn-tab-install">下载按钮</button>
-    </div>
 
     <div id="btn-tab-base" class="btn-tab-panel btn-tab-panel--active">
 
@@ -2551,41 +2543,40 @@ body.theme-light .homebar__line {
   <section id="noticebar-preview" class="preview-panel">
 
     <div class="demo-section">
-      <h3>Gray — 默认 + 详情箭头</h3>
       <div style="width:392px;background:var(--surface);border-radius:20px;padding:16px;overflow:auto;resize:horizontal;min-width:200px;max-width:600px">
-        <div id="nb-gray"></div>
+        <div id="nb-live"></div>
       </div>
     </div>
 
-    <div class="demo-section">
-      <h3>Gray — 带前置图标</h3>
-      <div style="width:392px;background:var(--surface);border-radius:20px;padding:16px;overflow:auto;resize:horizontal;min-width:200px;max-width:600px">
-        <div id="nb-gray-icon"></div>
-      </div>
+    <!-- 控制面板（隐藏，由右侧 controls-panel 自动读取） -->
+    <div style="display:none" id="nb-controls">
+      <div><span>颜色类型</span><div data-group="nb-type" style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="tb-pill tb-pill--active" data-val="gray">Gray</button>
+        <button class="tb-pill" data-val="yellow">Yellow</button>
+        <button class="tb-pill" data-val="red">Red</button>
+        <button class="tb-pill" data-val="blue">Blue</button>
+      </div></div>
+      <div><span>前置图标</span><div data-group="nb-icon" style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="tb-pill tb-pill--active" data-val="no">无</button>
+        <button class="tb-pill" data-val="yes">有</button>
+      </div></div>
+      <div><span>尾部操作</span><div data-group="nb-trailing" style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="tb-pill tb-pill--active" data-val="detail">详情 →</button>
+        <button class="tb-pill" data-val="close">关闭 ×</button>
+      </div></div>
     </div>
 
-    <div class="demo-section">
-      <h3>Yellow — 提醒 + 关闭</h3>
-      <div style="width:392px;background:var(--surface);border-radius:20px;padding:16px;overflow:auto;resize:horizontal;min-width:200px;max-width:600px">
-        <div id="nb-yellow"></div>
-      </div>
+    <!-- 以下保留旧容器供 JS 兼容 -->
+    <div style="display:none">
+      <div id="nb-gray"></div>
+      <div id="nb-gray-icon"></div>
+      <div id="nb-yellow"></div>
+      <div id="nb-red"></div>
+      <div id="nb-blue"></div>
+      <div id="nb-blue-icon"></div>
     </div>
 
-    <div class="demo-section">
-      <h3>Red — 警告 + 关闭</h3>
-      <div style="width:392px;background:var(--surface);border-radius:20px;padding:16px;overflow:auto;resize:horizontal;min-width:200px;max-width:600px">
-        <div id="nb-red"></div>
-      </div>
-    </div>
-
-    <div class="demo-section">
-      <h3>Blue — 强调 + 详情箭头</h3>
-      <div style="width:392px;background:var(--surface);border-radius:20px;padding:16px;overflow:auto;resize:horizontal;min-width:200px;max-width:600px">
-        <div id="nb-blue"></div>
-      </div>
-    </div>
-
-    <div class="demo-section">
+    <div class="demo-section" style="display:none">
       <h3>Blue — 带前置图标 + 关闭</h3>
       <div style="width:392px;background:var(--surface);border-radius:20px;padding:16px;overflow:auto;resize:horizontal;min-width:200px;max-width:600px">
         <div id="nb-blue-close"></div>
@@ -3081,6 +3072,7 @@ const controlsMap = {
   'chips-preview': 'chips-controls',
   'input-preview': 'input-controls',
   'dialog-preview': 'dlg-controls',
+  'noticebar-preview': 'nb-controls',
   'debug-tool-preview': null
 };
 
@@ -3233,16 +3225,18 @@ document.addEventListener('click', () => { document.querySelectorAll('.ctrl-drop
 // 初始化：为默认选中项加载控制面板
 syncControlsPanel('color-preview');
 
-// 按钮内部 Tab 切换
-document.querySelectorAll('.btn-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.btn-tab').forEach(t => t.classList.remove('btn-tab--active'));
-    tab.classList.add('btn-tab--active');
-    document.querySelectorAll('.btn-tab-panel').forEach(p => { p.style.display = 'none'; p.classList.remove('btn-tab-panel--active'); });
-    const target = document.getElementById(tab.dataset.btnTab);
-    if (target) { target.style.display = 'block'; target.classList.add('btn-tab-panel--active'); }
+// 按钮类型筛选（通过控制面板 data-group="btn-type" 触发）
+(function() {
+  const map = { base: 'btn-tab-base', custom: 'btn-tab-custom', install: 'btn-tab-install' };
+  document.addEventListener('click', function(e) {
+    const pill = e.target.closest('[data-group="btn-type"] .tb-pill');
+    if (!pill) return;
+    const val = pill.dataset.val;
+    document.querySelectorAll('.btn-tab-panel').forEach(p => { p.style.display = 'none'; });
+    const target = document.getElementById(map[val]);
+    if (target) target.style.display = 'block';
   });
-});
+})();
 
 /* ============================================================
    主色切换
@@ -4973,14 +4967,38 @@ class Tooltip {
   }
 
   const txt = '开启小米云同步，重要笔记、待办不丢失';
-  const c = (id) => document.getElementById(id);
+  const nbLive = document.getElementById('nb-live');
 
-  if (c('nb-gray')) new NoticeBar(c('nb-gray'), { text: txt, type: 'gray' });
-  if (c('nb-gray-icon')) new NoticeBar(c('nb-gray-icon'), { text: txt, type: 'gray', icon: true });
-  if (c('nb-yellow')) new NoticeBar(c('nb-yellow'), { text: txt, type: 'yellow', icon: true });
-  if (c('nb-red')) new NoticeBar(c('nb-red'), { text: txt, type: 'red', icon: true });
-  if (c('nb-blue')) new NoticeBar(c('nb-blue'), { text: txt, type: 'blue', trailing: 'detail' });
-  if (c('nb-blue-close')) new NoticeBar(c('nb-blue-close'), { text: txt, type: 'blue', icon: true });
+  function renderNbLive() {
+    if (!nbLive) return;
+    const nbControls = document.getElementById('nb-controls');
+    const getVal = (group) => {
+      const active = nbControls.querySelector(`[data-group="${group}"] .tb-pill--active`);
+      return active ? active.dataset.val : null;
+    };
+    const type = getVal('nb-type') || 'gray';
+    const icon = getVal('nb-icon') === 'yes';
+    const trailing = getVal('nb-trailing') || 'detail';
+    nbLive.innerHTML = '';
+    new NoticeBar(nbLive, { text: txt, type, icon, trailing });
+  }
+
+  renderNbLive();
+
+  // 源控件点击（syncControlsPanel 会 click 这里的 pill）
+  const nbControls = document.getElementById('nb-controls');
+  if (nbControls) {
+    nbControls.addEventListener('click', function(e) {
+      const pill = e.target.closest('.tb-pill');
+      if (!pill) return;
+      const group = pill.closest('[data-group]');
+      if (group) {
+        group.querySelectorAll('.tb-pill').forEach(p => p.classList.remove('tb-pill--active'));
+        pill.classList.add('tb-pill--active');
+      }
+      renderNbLive();
+    });
+  }
 })();
 
 /* ============================================================
