@@ -6,7 +6,7 @@ description: Drawer CSS + JS 代码。规范见 drawer.md
 
 # Drawer 代码
 
-规范：[drawer.md](drawer.md)
+⚠️ 复制代码前必须先读使用规则：[drawer.md](drawer.md)
 
 ---
 

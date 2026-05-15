@@ -6,7 +6,7 @@ description: Switch CSS + JS 代码。规范见 switch.md
 
 # Switch 代码
 
-规范：[switch.md](switch.md)
+⚠️ 复制代码前必须先读使用规则：[switch.md](switch.md)
 
 ---
 

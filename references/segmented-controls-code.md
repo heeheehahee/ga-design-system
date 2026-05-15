@@ -6,7 +6,7 @@ description: SegmentedControls CSS + JS 代码。规范见 segmented-controls.md
 
 # SegmentedControls 代码
 
-规范：[segmented-controls.md](segmented-controls.md)
+⚠️ 复制代码前必须先读使用规则：[segmented-controls.md](segmented-controls.md)
 
 ---
 

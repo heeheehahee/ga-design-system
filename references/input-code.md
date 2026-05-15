@@ -6,7 +6,7 @@ description: Input CSS + JS 代码。规范见 input.md
 
 # Input 输入框代码
 
-规范：[input.md](input.md)
+⚠️ 复制代码前必须先读使用规则：[input.md](input.md)
 
 ---
 

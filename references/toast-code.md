@@ -6,7 +6,7 @@ description: Toast CSS + JS 代码。规范见 toast.md
 
 # 轻提示 Toast 代码
 
-规范：[toast.md](toast.md)
+⚠️ 复制代码前必须先读使用规则：[toast.md](toast.md)
 
 ## CSS
 

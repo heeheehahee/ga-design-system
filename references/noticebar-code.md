@@ -6,7 +6,7 @@ description: NoticeBar CSS + JS 代码。规范见 noticebar.md
 
 # 信息提示 NoticeBar 代码
 
-规范：[noticebar.md](noticebar.md)
+⚠️ 复制代码前必须先读使用规则：[noticebar.md](noticebar.md)
 
 ## CSS
 

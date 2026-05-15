@@ -6,7 +6,7 @@ description: 弹窗 CSS + JS 工具函数。规范见 dialog.md
 
 # Dialog 弹窗代码
 
-规范：[dialog.md](dialog.md)
+⚠️ 复制代码前必须先读使用规则：[dialog.md](dialog.md)
 
 ---
 

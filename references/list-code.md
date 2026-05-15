@@ -6,7 +6,7 @@ description: List CSS + JS 代码。规范见 list.md
 
 # List 代码
 
-规范：[list.md](list.md)
+⚠️ 复制代码前必须先读使用规则：[list.md](list.md)
 
 ---
 

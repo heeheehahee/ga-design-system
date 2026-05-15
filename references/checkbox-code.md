@@ -6,7 +6,7 @@ description: Checkbox CSS + JS 代码。规范见 checkbox.md
 
 # Checkbox 代码
 
-规范：[checkbox.md](checkbox.md)
+⚠️ 复制代码前必须先读使用规则：[checkbox.md](checkbox.md)
 
 ---
 

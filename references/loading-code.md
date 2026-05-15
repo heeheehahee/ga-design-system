@@ -6,7 +6,7 @@ description: Loading CSS + JS 代码。规范见 loading.md
 
 # 加载 Loading 代码
 
-规范：[loading.md](loading.md)
+⚠️ 复制代码前必须先读使用规则：[loading.md](loading.md)
 
 ## CSS
 
