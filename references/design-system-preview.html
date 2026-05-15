@@ -253,6 +253,14 @@ body {
   padding: 12px 20px 8px;
 }
 .theme-light .sidebar__group-label { color: rgba(0,0,0,0.35); }
+.theme-light .ctrl-dropdown--open .ctrl-dropdown__trigger { border-color: #00B2B2; }
+.theme-light .ctrl-dropdown__item--active { color: #00B2B2; }
+.theme-light .ctrl-toggle--on { background: #00B2B2; }
+.theme-light .ctrl-code-ref span span { color: #00B2B2; }
+.theme-light .tb-pill--active { background: #00B2B2; border-color: #00B2B2; }
+.theme-light .topbar-toggle--on { background: #00B2B2; }
+.theme-light .ctrl-switch--on { background: #00B2B2; }
+.theme-light .ctrl-select:focus { border-color: #00B2B2; }
 .sidebar__item {
   display: block;
   width: calc(100% - 16px);
@@ -285,6 +293,7 @@ body {
   background: #00E5E5;
   flex-shrink: 0;
 }
+.theme-light .sidebar__item--active::after { background: #00B2B2; }
 .sidebar__item--placeholder {
   color: var(--on_surface_octonary);
   cursor: default;
@@ -313,9 +322,18 @@ body {
   flex-shrink: 0;
   background: var(--preview-bg);
   position: relative;
-  border-left: 1px dashed rgba(128,128,128,0.25);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 32px);
-  mask-image: linear-gradient(to bottom, transparent 0px, black 32px);
+  border-left: none;
+}
+.controls-panel::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-image: repeating-linear-gradient(to bottom, rgba(128,128,128,0.25) 0px, rgba(128,128,128,0.25) 4px, transparent 4px, transparent 8px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
 }
 .controls-panel:empty::after {
   display: none;
@@ -324,13 +342,24 @@ body {
 .ctrl-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; }
 .ctrl-row + .ctrl-row { margin-top: 4px; }
 .ctrl-label { font-size: 13px; color: var(--on_surface_tertiary); flex-shrink: 0; }
-.ctrl-select { appearance: none; background: var(--surface_container); border: 1px solid var(--outline); border-radius: 6px; padding: 6px 28px 6px 10px; font-size: 13px; color: var(--on_surface_secondary); cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23999' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ctrl-dropdown { position: relative; width: 120px; }
+.ctrl-dropdown__trigger { display: flex; align-items: center; justify-content: space-between; background: var(--surface_container); border: 1px solid var(--outline); border-radius: 6px; padding: 6px 10px; font-size: 13px; color: var(--on_surface_secondary); cursor: pointer; gap: 4px; }
+.ctrl-dropdown__trigger::after { content: ''; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid rgba(128,128,128,0.6); flex-shrink: 0; }
+.ctrl-dropdown--open .ctrl-dropdown__trigger { border-color: #00E5E5; }
+.ctrl-dropdown__menu { display: none; position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: #1a1a1a; border: 1px solid rgba(128,128,128,0.3); border-radius: 8px; padding: 4px; z-index: 999; }
+.theme-light .ctrl-dropdown__menu { background: #ffffff; }
+.ctrl-dropdown--open .ctrl-dropdown__menu { display: block; }
+.ctrl-dropdown__item { padding: 6px 10px; font-size: 13px; color: var(--on_surface_secondary); border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+.ctrl-dropdown__item:hover { background: rgba(128,128,128,0.15); }
+.ctrl-dropdown__item--active { color: #00E5E5; }
+.ctrl-dropdown__item--active::before { content: '✓'; font-size: 11px; }
 .ctrl-toggle { position: relative; width: 36px; height: 20px; border-radius: 10px; background: var(--surface_container_high); cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
 .ctrl-toggle::after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: var(--white); transition: transform 0.2s; }
-.ctrl-toggle--on { background: var(--primary); }
+.ctrl-toggle--on { background: #00E5E5; }
 .ctrl-toggle--on::after { transform: translateX(16px); }
 .ctrl-code-ref { text-decoration: none; cursor: pointer; color: var(--on_surface_tertiary); }
-.ctrl-code-ref svg { flex-shrink: 0; }
+.ctrl-code-ref span span { color: #00E5E5; }
+.ctrl-code-ref svg { flex-shrink: 0; color: var(--on_surface_tertiary); }
 .code-modal { display:none; position:fixed; inset:0; z-index:9999; background:var(--mask); justify-content:center; align-items:center; }
 .code-modal--open { display:flex; }
 .code-modal__box { width:680px; max-width:90vw; height:80vh; background:var(--surface_high); border-radius:16px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 24px 50px rgba(0,0,0,0.3); }
@@ -758,9 +787,9 @@ body {
   transition: all 0.15s;
 }
 .tb-pill--active {
-  background: var(--on_surface);
-  color: var(--surface);
-  border-color: var(--on_surface);
+  background: #00E5E5;
+  color: #09090b;
+  border-color: #00E5E5;
 }
 
 /* 页面结构预览 */
@@ -1435,7 +1464,7 @@ body.theme-light .homebar__line {
   content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px;
   border-radius: 50%; background: #fff; transition: transform 0.2s;
 }
-.topbar-toggle--on { background: var(--primary, #05C474); }
+.topbar-toggle--on { background: #00E5E5; }
 .topbar-toggle--on::after { transform: translateX(16px); }
 
 /* ============================
@@ -1942,7 +1971,7 @@ body.theme-light .homebar__line {
   transition: transform 0.2s ease;
   box-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
-.ctrl-switch--on { background: var(--primary); }
+.ctrl-switch--on { background: #00E5E5; }
 .ctrl-switch--on::after { transform: translateX(21px); }
 .ctrl-note {
   padding: 20px;
@@ -3133,16 +3162,29 @@ function syncControlsPanel(sectionId) {
         if (origPill) origPill.click();
       });
     } else {
-      // Dropdown select
-      const opts = pills.map(p => `<option value="${p.dataset.val}"${p.dataset.val === activeVal ? ' selected' : ''}>${p.textContent.trim()}</option>`).join('');
-      row.innerHTML = `<span class="ctrl-label">${label}</span><select class="ctrl-select" data-group="${groupName}">${opts}</select>`;
-      row.querySelector('.ctrl-select').addEventListener('change', function() {
-        if (groupName.startsWith('theme-')) {
-          applyTheme(this.value, document.getElementById(sectionId));
-        } else {
-          const origPill = document.querySelector(`.content [data-group="${groupName}"] [data-val="${this.value}"]`);
-          if (origPill) origPill.click();
-        }
+      // Custom dropdown
+      const activeLabel = pills.find(p => p.dataset.val === activeVal)?.textContent.trim() || activeVal;
+      row.innerHTML = `<span class="ctrl-label">${label}</span><div class="ctrl-dropdown" data-group="${groupName}"><div class="ctrl-dropdown__trigger"><span>${activeLabel}</span></div><div class="ctrl-dropdown__menu">${pills.map(p => `<div class="ctrl-dropdown__item${p.dataset.val === activeVal ? ' ctrl-dropdown__item--active' : ''}" data-val="${p.dataset.val}">${p.textContent.trim()}</div>`).join('')}</div></div>`;
+      const dropdown = row.querySelector('.ctrl-dropdown');
+      const trigger = dropdown.querySelector('.ctrl-dropdown__trigger');
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        document.querySelectorAll('.ctrl-dropdown--open').forEach(d => { if (d !== dropdown) d.classList.remove('ctrl-dropdown--open'); });
+        dropdown.classList.toggle('ctrl-dropdown--open');
+      });
+      dropdown.querySelectorAll('.ctrl-dropdown__item').forEach(item => {
+        item.addEventListener('click', () => {
+          dropdown.classList.remove('ctrl-dropdown--open');
+          dropdown.querySelectorAll('.ctrl-dropdown__item').forEach(i => i.classList.remove('ctrl-dropdown__item--active'));
+          item.classList.add('ctrl-dropdown__item--active');
+          trigger.querySelector('span').textContent = item.textContent;
+          if (groupName.startsWith('theme-')) {
+            applyTheme(item.dataset.val, document.getElementById(sectionId));
+          } else {
+            const origPill = document.querySelector(`.content [data-group="${groupName}"] [data-val="${item.dataset.val}"]`);
+            if (origPill) origPill.click();
+          }
+        });
       });
     }
     controlsPanel.appendChild(row);
@@ -3184,6 +3226,9 @@ document.querySelectorAll('.sidebar__item:not(.sidebar__item--placeholder)').for
     syncControlsPanel(item.dataset.target);
   });
 });
+
+// 全局点击关闭下拉菜单
+document.addEventListener('click', () => { document.querySelectorAll('.ctrl-dropdown--open').forEach(d => d.classList.remove('ctrl-dropdown--open')); });
 
 // 初始化：为默认选中项加载控制面板
 syncControlsPanel('color-preview');
@@ -6077,7 +6122,7 @@ class DebugToolPreview {
     <div class="code-modal__body"><iframe id="code-modal-iframe"></iframe></div>
     <div class="code-modal__footer">
       <span id="code-modal-path" style="font-size:11px;color:var(--on_surface_quaternary);font-family:monospace"></span>
-      <span id="code-modal-copy" style="font-size:12px;color:var(--primary);cursor:pointer;flex-shrink:0;white-space:nowrap">复制文件地址</span>
+      <span id="code-modal-copy" style="font-size:12px;color:#00E5E5;cursor:pointer;flex-shrink:0;white-space:nowrap">复制文件地址</span>
     </div>
   </div>
 </div>
@@ -6088,10 +6133,10 @@ class DebugToolPreview {
   const title = document.getElementById('code-modal-title');
   const copyBtn = document.getElementById('code-modal-copy');
   const pathEl = document.getElementById('code-modal-path');
-  const baseDir = location.href.substring(0, location.href.lastIndexOf('/') + 1);
-  let currentPath = '';
+  const githubBase = 'https://github.com/heeheehahee/ga-design-system/blob/main/references/';
+  let currentUrl = '';
   copyBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(currentPath).then(() => {
+    navigator.clipboard.writeText(currentUrl).then(() => {
       copyBtn.textContent = '已复制';
       setTimeout(() => { copyBtn.textContent = '复制文件地址'; }, 1500);
     });
@@ -6101,9 +6146,8 @@ class DebugToolPreview {
   window.openCodeModal = function(file) {
     title.textContent = file;
     iframe.src = file;
-    currentPath = decodeURIComponent((baseDir + file).replace('file://', ''));
-    const fullPath = decodeURIComponent((baseDir + file).replace('file://', ''));
-    pathEl.textContent = fullPath;
+    currentUrl = githubBase + file;
+    pathEl.textContent = currentUrl;
     modal.classList.add('code-modal--open');
   };
 })();
